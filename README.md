@@ -1,1 +1,1 @@
-# Forritun-C-
+# RU-CPP-Course
