@@ -19,14 +19,13 @@ void Game::get_random_word() {
 
     int rand_line;
 
-    srand ( time(NULL) );
+    srand (time(NULL));
+    rand_line = rand() % 5 + 0;    // HARDCODED FOR NOW
 
-    rand_line = rand() % 5 + 0;
     std::cout << "Random line nr. : " << rand_line << std::endl;
 
     ifstream fin;
     fin.open("words.txt");
-
 
     for (int i = rand_line; i > 0; i--) {
         fin >> my_string;
