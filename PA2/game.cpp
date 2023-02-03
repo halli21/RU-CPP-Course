@@ -28,9 +28,7 @@ void Game::get_random_word() {
     int rand_line;
 
     srand (time(NULL));
-    rand_line = rand() % 5 + 1;
-
-    std::cout << "Random line nr. : " << rand_line << std::endl;
+    rand_line = rand() % 5 + 1;     // 1 - 5, HARDCODED FOR NOW
 
     ifstream fin;
     fin.open("words.txt");
@@ -69,4 +67,22 @@ void Game::scramble_word() {
 
     strcpy(scrambled_word, word_copy);
 
+}
+
+
+
+void Game::get_main_menu() {
+    std::cout << "\nWelcome to Word jumble\n\n1 - Play" << std::endl;
+
+}
+
+
+void Game::interval() {
+
+    //std::cout << "\n" << std::endl;
+
+    for (int i = 0; i < 100; i++) {
+        std::cout << "-";
+    }
+    std::cout << "\n" << std::endl;
 }

@@ -6,23 +6,61 @@ using namespace std;
 
 
 int main() {
+
+    char option;
+
     Game test;
 
+    test.get_main_menu();
 
-    std::cout << "Word before random call: " << test.get_original_word() << std::endl;
+    cout << "\nPlease choose an option: ";
+
+    std::cin >> option;
+
+    if (option == '1') {
+        
+        //system("clear");
+
+        char guess[45];
+        bool end_game = false;
+
+        test.get_random_word();
+        test.scramble_word();
 
 
-    test.get_random_word();
+
+        while (!end_game) {
+
+            test.interval();
 
 
-    std::cout << "Word after random call: " << test.get_original_word() << std::endl;
+            std::cout << "Your scrambled word is " << "'" << test.get_scrambled_word() << "'\n" << std::endl;
 
+            cout << "What do you think the word is? ";
 
-    test.scramble_word();
+            std::cin >> guess;
 
+            if (strcmp(guess, test.get_original_word()) != 0) {
+                char continue_game;
 
-    std::cout << "Word after scramble call: " << test.get_scrambled_word() << std::endl;
+                cout << "\n\nWrong, do you want to guess again (y or n)? ";
 
+                std::cin >> continue_game;
+
+                if (continue_game == 'n') {
+                    end_game = true;
+                }
+
+            } else {
+
+                std::cout << "\n\nCorrect!\n" << std::endl;
+                
+                end_game = true;
+            }
+
+        }
+
+    }
 
 
     return 0;

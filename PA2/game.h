@@ -13,6 +13,10 @@ class Game {
 
     char* get_scrambled_word();
 
+    void get_main_menu();
+
+    void interval();
+
  private:
     char word_file[10];
     char original_word[45];   //lengsta orð ever er 45 stafir
