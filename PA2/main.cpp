@@ -9,14 +9,19 @@ int main() {
     Game test;
 
 
-    std::cout << "Word before random call: " << test.original_word << std::endl;
-
+    std::cout << "Word before random call: " << test.get_original_word() << std::endl;
 
 
     test.get_random_word();
 
 
-    std::cout << "Word after random call: " << test.original_word << std::endl;
+    std::cout << "Word after random call: " << test.get_original_word() << std::endl;
+
+
+    test.scramble_word();
+
+
+    std::cout << "Word after scramble call: " << test.get_scrambled_word() << std::endl;
 
 
 

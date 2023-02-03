@@ -2,13 +2,20 @@ using namespace std;
 
 
 class Game {       
-  public:
+ public:
     Game();
-    string word_file;       // Þurfum að breyta megum ekki nota string        
-    string original_word;
-    string scrambled_word;
 
     void get_random_word();
 
     void scramble_word();
+
+    char* get_original_word();
+
+    char* get_scrambled_word();
+
+ private:
+    char word_file[10];
+    char original_word[45];   //lengsta orð ever er 45 stafir
+    char scrambled_word[45];
+
 };

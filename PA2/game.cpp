@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string.h>
 #include <fstream>
+#include <string.h>
 #include <stdlib.h>  /* srand, rand */
 #include <time.h>
 #include "game.h"
@@ -8,19 +8,27 @@
 using namespace std;
 
 Game::Game() {
-    word_file = "words.txt";
-    original_word = "";
-    scrambled_word = "";
+    strcpy(word_file, "words.txt");
+    strcpy(original_word, "");
+    strcpy(scrambled_word, "");
+}
+
+char* Game::get_original_word() {
+    return original_word;
+}
+
+char* Game::get_scrambled_word() {
+    return scrambled_word;
 }
 
 
 void Game::get_random_word() {
-    char my_string[128];
+    char my_string[45];
 
     int rand_line;
 
     srand (time(NULL));
-    rand_line = rand() % 5 + 0;    // HARDCODED FOR NOW
+    rand_line = rand() % 5 + 1;
 
     std::cout << "Random line nr. : " << rand_line << std::endl;
 
@@ -29,7 +37,7 @@ void Game::get_random_word() {
 
     for (int i = rand_line; i > 0; i--) {
         fin >> my_string;
-        original_word = my_string;
+        strcpy(original_word, my_string);
     }
 
     fin.close();
@@ -37,7 +45,28 @@ void Game::get_random_word() {
 }
 
 void Game::scramble_word() {
-    
-    char letters[original_word.length()];
-    
+    char word_copy[45];
+
+    strcpy(word_copy, original_word);
+
+    int size = strlen(original_word);
+
+    bool scrambled = false;
+
+
+    while (!scrambled) {
+        for (int i = 0; i < size; i++) {
+            srand (time(NULL));
+            int j = rand() % size;
+            char temp_char = word_copy[i];
+            word_copy[i] = word_copy[j];
+            word_copy[j] = temp_char;
+        }
+        if (strcmp(word_copy, original_word) != 0) {    //Securea scrambled orð
+            scrambled = true;
+        }
+    }
+
+    strcpy(scrambled_word, word_copy);
+
 }
