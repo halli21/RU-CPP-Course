@@ -28,9 +28,11 @@ class Game {
 
  private:
     char word_file[10];
+    char highscore_file[14];
     char original_word[45];   //lengsta orð ever er 45 stafir
     char scrambled_word[45];
     char hint_word[45];
+
 
 
     int get_score(double);
@@ -41,23 +43,3 @@ class Game {
 
 
 
-
-class DynamicArray {       
- public:
-    DynamicArray();
-
-    void push_back(const char*);
-
-    int get_size();
-
-    char* operator[](int index) const;
-
-    virtual ~DynamicArray();
-
-
- private:
-    char** arr;
-    int size;
-    int capacity;
-
-};

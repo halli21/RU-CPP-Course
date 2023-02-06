@@ -4,6 +4,7 @@
 #include <stdlib.h>  /* srand, rand */
 #include <time.h>
 #include "game.h"
+#include "DynamicArray.h"
 #include <chrono>
 
 
@@ -12,6 +13,7 @@ using namespace std;
 
 Game::Game() {
     strcpy(word_file, "words.txt");
+    strcpy(highscore_file, "highscore.txt");
     strcpy(original_word, "");
     strcpy(scrambled_word, "");
     strcpy(hint_word, "");
@@ -207,55 +209,30 @@ int Game::get_score(double sec) {
 }
 
 void Game::add_score(int score) {
-    char initials[3];
+    char score_line[10];
+    bool valid = false;
+    char input[3];
 
-    cout << "\nPlease enter your initials (max 3 char): ";
-    std::cin >> initials;
-
-
-
-}
-
-
-
-DynamicArray::DynamicArray() {
-    size = 0;
-    capacity = 1;
-    arr = new char*[capacity];
-}
-
-
-void DynamicArray::push_back(const char* word) {
-    if (size == capacity) {
-        capacity *= 2;
-        char** newArr = new char*[capacity];
-        for (int i = 0; i < size; i++) {
-            newArr[i] = arr[i];
+    while (!valid) {
+        cout << "\nPlease enter your initials to save score (max 3 char): ";
+        std::cin >> input;
+        if (strlen(input) < 3) {
+            valid = true;
         }
-        delete[] arr;
-        arr = newArr;
     }
-    arr[size] = new char[strlen(word) + 1];
-    strcpy(arr[size], word);
-    size++;
+
+    ofstream fout;
+    fout.open(highscore_file);
+
+    for (int i = 0; i < 3; i++) {
+        score_line[i] = input[i];
+    }
+
+
+
+
+
 }
 
 
-int DynamicArray::get_size() {
-    return size;
-}
 
-char* DynamicArray::operator[](int index) const {
-    if (index >= size) {
-        std::cout << "Index out of range" << std::endl;
-        return nullptr;
-    }
-    return arr[index];
-}
-
-DynamicArray::~DynamicArray() {
-        for (int i = 0; i < size; i++) {
-            delete[] arr[i];
-        }
-        delete[] arr;
-    }
