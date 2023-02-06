@@ -131,6 +131,7 @@ void Game::play_game() {
     char hint[45];
     hint[0] = 'h';
     double points = 10.0;
+    bool got_hint = false;
 
     // reikna score
     int right_answer = 0;
@@ -162,6 +163,7 @@ void Game::play_game() {
             if (strcmp(guess, hint) == 0) {
                 points -= 1;
                 get_hint();
+                got_hint = true;
 
             }
             else if (strcmp(guess, get_original_word()) != 0) {
