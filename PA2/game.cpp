@@ -12,6 +12,7 @@ Game::Game() {
     strcpy(original_word, "");
     strcpy(scrambled_word, "");
     strcpy(hint_word, "");
+    score = 10.0;
 
 }
 
@@ -98,7 +99,7 @@ void Game::get_dashes() {
     
 }
 
-void Game::hint() {
+void Game::get_hint() {
     int size = strlen(original_word);
     int rand_index;
     int hint = false;
@@ -116,8 +117,62 @@ void Game::hint() {
 
 }
 
-char* Game::get_hint() {
+char* Game::get_hint_word() {
     return hint_word;
+}
+
+
+
+void Game::play_game() {
+    char guess[45];
+    char hint[45];
+    hint[0] = 'h';
+    bool end_game = false;
+
+    get_random_word();
+    scramble_word();
+    get_dashes();
+    
+    while (!end_game) {
+
+        interval();
+
+        std::cout << "Your scrambled word is " << "'" << get_scrambled_word() << "'\n" << std::endl;
+            
+
+        std::cout << "Press h to get a hint: " << get_hint_word() << "'\n" << std::endl;
+
+
+        cout << "What do you think the word is? ";
+
+        std::cin >> guess;
+
+
+        if (strcmp(guess, hint) == 0){
+            get_hint();
+
+        }
+        else if (strcmp(guess, get_original_word()) != 0) {
+            char continue_game;
+
+            cout << "\n\nWrong, do you want to guess again (y or n)? ";
+
+            std::cin >> continue_game;
+
+            if (continue_game == 'n') {
+                end_game = true;
+            }
+
+        } 
+        else {
+
+            std::cout << "\n\nCorrect!\n" << std::endl;
+            
+            end_game = true;
+        }
+
+    }
+
 }
 
 
