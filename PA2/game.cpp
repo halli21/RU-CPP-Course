@@ -30,7 +30,7 @@ void Game::get_random_word() {
 
 
     ifstream fin;
-    fin.open("words.txt");
+    fin.open(word_file);
 
     while (fin.getline(word, delimiter)) {
         arr.push_back(word);
