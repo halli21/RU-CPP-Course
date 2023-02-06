@@ -1,5 +1,4 @@
-using namespace std;
-
+#include "DynamicArray.h"
 
 class Game {       
  public:
@@ -16,6 +15,11 @@ class Game {
     char original_word[45];   //lengsta orð ever er 45 stafir
     char scrambled_word[45];
     char hint_word[45];
+    DynamicArray words_arr;
+   
+
+
+    void get_words_arr();
 
     void get_random_word();
 
@@ -38,8 +42,6 @@ class Game {
     void reset_words();
 
     void add_score(int);
-
-
 
 };
 

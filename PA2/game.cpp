@@ -4,7 +4,6 @@
 #include <stdlib.h>  /* srand, rand */
 #include <time.h>
 #include "game.h"
-#include "DynamicArray.h"
 #include <chrono>
 
 
@@ -20,6 +19,22 @@ Game::Game() {
 
 }
 
+ void Game::get_words_arr() {
+    char word[45];
+    const int max = 45;
+
+    ifstream fin;
+    fin.open(word_file);
+
+    while (fin.getline(word, max)) {
+        words_arr.push_back(word);
+    }
+
+    fin.close();
+ }
+
+
+
 char* Game::get_original_word() {
     return original_word;
 }
@@ -30,33 +45,26 @@ char* Game::get_scrambled_word() {
 
 
 void Game::get_random_word() {
-    DynamicArray arr;
-    char word[45];
-    const int delimiter = 45;
     int rand_line;
 
+    int arr_size = words_arr.get_size();
 
-    ifstream fin;
-    fin.open(word_file);
-
-    while (fin.getline(word, delimiter)) {
-        arr.push_back(word);
+    if (arr_size == 0) {
+        get_words_arr();
     }
 
-    int arr_size = arr.get_size();
 
-    std::cout << arr_size << std::endl;
 
     srand (time(NULL));
-    rand_line = rand() % (arr_size - 1) + 0;
+    rand_line = 0 + rand() % (arr_size - 1);
 
     if (arr_size == 1) {      // ÞARF EKKI ENDILEGA VERÐUR ALLTAF EH EN VAR AÐ TESTA EH
-        strcpy(original_word, arr[0]);
+        strcpy(original_word, words_arr[0]);
     } else {
-        strcpy(original_word, arr[rand_line]);
+        strcpy(original_word, words_arr[rand_line]);
     }
 
-    fin.close();
+
 
 }
 
@@ -102,8 +110,6 @@ void Game::interval() {
 
 void Game::get_dashes() {
     int size = strlen(original_word);
-
-    std::cout << "size: "<< size << std::endl;
 
     for (int i = 0; i < size; i++) {
         hint_word[i] = '-';
@@ -159,66 +165,72 @@ void Game::play_game() {
         std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
         while (!correct) {
+            if (points > 0) {
 
-            interval();
+                interval();
 
-            std::cout << "Your scrambled word is " << "'" << get_scrambled_word() << "'\n" << std::endl;
+                std::cout << "Your scrambled word is " << "'" << get_scrambled_word() << "'\n" << std::endl;
 
-            if (hints_done) {
-                std::cout << "Hmm.. Better think about this: " << get_hint_word() << "\n" << std::endl;
-            } else {
-                std::cout << "Press h to get a hint: " << get_hint_word() << "\n" << std::endl;
-            }
-           
-
-            cout << "What do you think the word is? ";
-
-            std::cin >> guess;
-
-
-            if (strcmp(guess, hint) == 0 && !hints_done) {
-                points -= 1;
-                score -= 25;
-                get_hint();
-                got_hint = true;
-                if (strcmp(get_hint_word(), get_original_word()) == 0) {
-                    hints_done = true;
+                if (hints_done) {
+                    std::cout << "Hmm.. Better think about this: " << get_hint_word() << "\n" << std::endl;
+                } else {
+                    std::cout << "Press h to get a hint: " << get_hint_word() << "\n" << std::endl;
                 }
+            
 
-            }
-            else if (strcmp(guess, get_original_word()) != 0) {
-                cout << "\n\nWrong, try again!\n";
-                points -= 0.25;
+                cout << "What do you think the word is? ";
 
-            } 
-            else {
-                std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-                double seconds = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.00;
+                std::cin >> guess;
 
-                std::cout << "\n\nCorrect!\n" << std::endl;
-                std::cout << "You were: " << seconds << " seconds"<< std::endl;
 
+                if (strcmp(guess, hint) == 0 && !hints_done) {
+                    points -= 1;
+                    score -= 25;
+                    get_hint();
+                    got_hint = true;
+                    if (strcmp(get_hint_word(), get_original_word()) == 0) {
+                        hints_done = true;
+                    }
+
+                }
+                else if (strcmp(guess, get_original_word()) != 0) {
+                    cout << "\n\nWrong, try again!\n";
+                    points -= 0.25;
+
+                } 
+                else {
+                    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+                    double seconds = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.00;
+
+                    std::cout << "\n\nCorrect!\n" << std::endl;
+                    std::cout << "You were: " << seconds << " seconds"<< std::endl;
+
+                    correct = true;
+
+                    if (!got_hint){
+                        streak += 0.2;
+                    }
+                    else
+                    {
+                        streak = 1.00;
+                        got_hint = true;
+                    }
+                    
+
+                    int correct_score = get_score(seconds, streak);
+                    score += correct_score;
+
+                }
+                //strcpy(hint_word, "");
+            } else {
                 correct = true;
 
-                if (!got_hint){
-                    streak += 0.2;
-                }
-                else
-                {
-                    streak = 1.00;
-                    got_hint = true;
-                }
-                
-
-                int correct_score = get_score(seconds, streak);
-                score += correct_score;
-
-                std::cout << score << std::endl;
-
-                //strcpy(hint_word, "");
             }
         }
-    }   
+    }
+    interval();
+    std::cout << "\nGame Over! You ran out of points, your final score is " << score << ".\n" << std::endl;
+    add_score(score);
 }
 
 int Game::get_score(double sec, double streak) {
@@ -255,28 +267,24 @@ void Game::reset_words() {
 
 
 void Game::add_score(int score) {
-    char score_line[10];
     bool valid = false;
     char input[3];
+
 
     while (!valid) {
         cout << "\nPlease enter your initials to save score (max 3 char): ";
         std::cin >> input;
-        if (strlen(input) < 3) {
+        if (strlen(input) <= 3) {
             valid = true;
         }
     }
 
     ofstream fout;
-    fout.open(highscore_file);
+    fout.open(highscore_file, ios::app);
 
-    for (int i = 0; i < 3; i++) {
-        score_line[i] = input[i];
-    }
+    fout << score << ' ' << input << std::endl;
 
-
-
-
+    fout.close();
 
 }
 
