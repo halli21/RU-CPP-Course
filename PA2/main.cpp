@@ -46,7 +46,6 @@ int main() {
 
 
             if (strcmp(guess, hint) == 0){
-                std::cout << "HINT" << std::endl;
                 test.hint();
 
             }
