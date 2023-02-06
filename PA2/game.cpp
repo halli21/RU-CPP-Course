@@ -25,20 +25,25 @@ char* Game::get_scrambled_word() {
 
 
 void Game::get_random_word() {
-    char my_string[45];
-
+    DynamicArray arr;
+    char word[45];
+    const int delimiter = 45;
     int rand_line;
 
-    srand (time(NULL));
-    rand_line = rand() % 5 + 1;     // 1 - 5, HARDCODED FOR NOW
 
     ifstream fin;
-    fin.open("words.txt");
+    fin.open(word_file);
 
-    for (int i = rand_line; i > 0; i--) {
-        fin >> my_string;
-        strcpy(original_word, my_string);
+    while (fin.getline(word, delimiter)) {
+        arr.push_back(word);
     }
+
+    int arr_size = arr.get_size();
+
+    srand (time(NULL));
+    rand_line = rand() % arr_size + 1;
+
+    strcpy(original_word, arr[rand_line]);
 
     fin.close();
 
@@ -71,16 +76,12 @@ void Game::scramble_word() {
 
 }
 
-
-
 void Game::get_main_menu() {
     std::cout << "\nWelcome to Word jumble\n\n1 - Play" << std::endl;
-
 }
 
 
 void Game::interval() {
-
     for (int i = 0; i < 100; i++) {
         std::cout << "-";
     }
@@ -111,3 +112,47 @@ void Game::hint(){
 char* Game::get_hint(){
     return hint_word;
 }
+
+
+
+DynamicArray::DynamicArray() {
+    size = 0;
+    capacity = 1;
+    arr = new char*[capacity];
+}
+
+
+void DynamicArray::push_back(const char* word) {
+    if (size == capacity) {
+        capacity *= 2;
+        char** newArr = new char*[capacity];
+        for (int i = 0; i < size; i++) {
+            newArr[i] = arr[i];
+        }
+        delete[] arr;
+        arr = newArr;
+    }
+    arr[size] = new char[strlen(word) + 1];
+    strcpy(arr[size], word);
+    size++;
+}
+
+
+int DynamicArray::get_size() {
+    return size;
+}
+
+char* DynamicArray::operator[](int index) const {
+    if (index >= size) {
+        std::cout << "Index out of range" << std::endl;
+        return nullptr;
+    }
+    return arr[index];
+}
+
+DynamicArray::~DynamicArray() {
+        for (int i = 0; i < size; i++) {
+            delete[] arr[i];
+        }
+        delete[] arr;
+    }
