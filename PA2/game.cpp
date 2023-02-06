@@ -12,7 +12,6 @@ Game::Game() {
     strcpy(original_word, "");
     strcpy(scrambled_word, "");
     strcpy(hint_word, "");
-    score = 10.0;
 
 }
 
@@ -124,55 +123,60 @@ char* Game::get_hint_word() {
 
 
 void Game::play_game() {
+    bool end_game = false;
     char guess[45];
     char hint[45];
     hint[0] = 'h';
-    bool end_game = false;
+    double points = 10.0;
+
+    // reikna score
+    int right_answer = 0;
+
 
     get_random_word();
     scramble_word();
     get_dashes();
+
+    while (score > 0) { 
+        get_random_word();
+        scramble_word();
+        get_dashes();
     
-    while (!end_game) {
+        while (!end_game) {
 
-        interval();
+            interval();
 
-        std::cout << "Your scrambled word is " << "'" << get_scrambled_word() << "'\n" << std::endl;
-            
+            std::cout << "Your scrambled word is " << "'" << get_scrambled_word() << "'\n" << std::endl;
 
-        std::cout << "Press h to get a hint: " << get_hint_word() << "'\n" << std::endl;
+            std::cout << "Press h to get a hint: " << get_hint_word() << "'\n" << std::endl;
 
+            cout << "What do you think the word is? ";
 
-        cout << "What do you think the word is? ";
-
-        std::cin >> guess;
+            std::cin >> guess;
 
 
-        if (strcmp(guess, hint) == 0){
-            get_hint();
+            if (strcmp(guess, hint) == 0){
+                points -= 1;
+                get_hint();
 
-        }
-        else if (strcmp(guess, get_original_word()) != 0) {
-            char continue_game;
+            }
+            else if (strcmp(guess, get_original_word()) != 0) {
+                cout << "\n\nWrong, try again!";
 
-            cout << "\n\nWrong, do you want to guess again (y or n)? ";
+                points -= 0.25;
 
-            std::cin >> continue_game;
+                std::cout << score << std::endl;
 
-            if (continue_game == 'n') {
+            } 
+            else {
+
+                std::cout << "\n\nCorrect!\n" << std::endl;
+                
                 end_game = true;
             }
 
-        } 
-        else {
-
-            std::cout << "\n\nCorrect!\n" << std::endl;
-            
-            end_game = true;
         }
-
-    }
-
+    }   
 }
 
 
