@@ -98,18 +98,20 @@ void Game::get_dashes() {
     
 }
 
-void Game::hint(){
+void Game::hint() {
     int size = strlen(original_word);
     int rand_index;
 
     srand (time(NULL));
     rand_index = rand() % size + 0;
 
+
     hint_word[rand_index] =  original_word[rand_index];
      
+
 }
 
-char* Game::get_hint(){
+char* Game::get_hint() {
     return hint_word;
 }
 

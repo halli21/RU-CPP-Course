@@ -28,6 +28,7 @@ int main() {
 
         test.get_random_word();
         test.scramble_word();
+        test.get_dashes();
        
         while (!end_game) {
 
@@ -36,7 +37,6 @@ int main() {
             std::cout << "Your scrambled word is " << "'" << test.get_scrambled_word() << "'\n" << std::endl;
                 
 
-            test.get_dashes();
             std::cout << "Press h to get a hint: " << test.get_hint() << "'\n" << std::endl;
 
 
