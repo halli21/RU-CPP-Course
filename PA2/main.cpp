@@ -1,5 +1,8 @@
 #include <iostream>
 #include "game.h"
+#include <chrono>
+
+
 
 using namespace std;
 
@@ -26,18 +29,19 @@ int main() {
         hint[0] = 'h';
         bool end_game = false;
 
-        test.get_random_word();
-        test.scramble_word();
-        test.get_dashes();
-       
+         
+        std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
         while (!end_game) {
+            
 
             test.interval();
+
 
             std::cout << "Your scrambled word is " << "'" << test.get_scrambled_word() << "'\n" << std::endl;
                 
 
-            std::cout << "Press h to get a hint: " << test.get_hint() << "'\n" << std::endl;
+            std::cout << "Press h to get a hint: " << test.get_hint() << "\n" << std::endl;
 
 
             cout << "What do you think the word is? ";
@@ -62,9 +66,11 @@ int main() {
 
             } 
             else {
+                std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
                 std::cout << "\n\nCorrect!\n" << std::endl;
-                
+                std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+                std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << std::endl;         
                 end_game = true;
             }
 
