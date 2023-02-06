@@ -14,6 +14,9 @@ using namespace std;
 Game::Game() {
     strcpy(word_file, "words.txt");
     strcpy(highscore_file, "highscore.txt");
+    memset(original_word, 0, sizeof(original_word));
+    memset(scrambled_word, 0, sizeof(scrambled_word));
+    memset(hint_word, 0, sizeof(hint_word));
 
 }
 
@@ -47,7 +50,11 @@ void Game::get_random_word() {
     srand (time(NULL));
     rand_line = rand() % (arr_size - 1) + 0;
 
-    strcpy(original_word, arr[rand_line]);
+    if (arr_size == 1) {      // ÞARF EKKI ENDILEGA VERÐUR ALLTAF EH EN VAR AÐ TESTA EH
+        strcpy(original_word, arr[0]);
+    } else {
+        strcpy(original_word, arr[rand_line]);
+    }
 
     fin.close();
 
