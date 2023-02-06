@@ -79,8 +79,6 @@ void Game::get_main_menu() {
 
 void Game::interval() {
 
-    //std::cout << "\n" << std::endl;
-
     for (int i = 0; i < 100; i++) {
         std::cout << "-";
     }

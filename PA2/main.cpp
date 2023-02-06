@@ -27,12 +27,9 @@ int main() {
         test.get_random_word();
         test.scramble_word();
 
-
-
         while (!end_game) {
 
             test.interval();
-
 
             std::cout << "Your scrambled word is " << "'" << test.get_scrambled_word() << "'\n" << std::endl;
 
