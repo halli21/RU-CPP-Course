@@ -14,9 +14,6 @@ using namespace std;
 Game::Game() {
     strcpy(word_file, "words.txt");
     strcpy(highscore_file, "highscore.txt");
-    strcpy(original_word, "");
-    strcpy(scrambled_word, "");
-    strcpy(hint_word, "");
 
 }
 
@@ -45,8 +42,10 @@ void Game::get_random_word() {
 
     int arr_size = arr.get_size();
 
+    std::cout << arr_size << std::endl;
+
     srand (time(NULL));
-    rand_line = rand() % arr_size + 1;
+    rand_line = rand() % (arr_size - 1) + 0;
 
     strcpy(original_word, arr[rand_line]);
 
@@ -97,6 +96,7 @@ void Game::interval() {
 void Game::get_dashes() {
     int size = strlen(original_word);
 
+    std::cout << "size: "<< size << std::endl;
 
     for (int i = 0; i < size; i++) {
         hint_word[i] = '-';
@@ -138,12 +138,13 @@ void Game::play_game() {
 
     // reikna score
     int score = 0;
-    int right_answer = 0;
 
     while (points > 0) {
 
         bool correct = false;
+        bool hints_done = false;
 
+        reset_words();
         get_random_word();
         scramble_word();
         get_dashes();
@@ -156,18 +157,26 @@ void Game::play_game() {
 
             std::cout << "Your scrambled word is " << "'" << get_scrambled_word() << "'\n" << std::endl;
 
-            std::cout << "Press h to get a hint: " << get_hint_word() << "\n" << std::endl;
+            if (hints_done) {
+                std::cout << "Hmm.. Better think about this: " << get_hint_word() << "\n" << std::endl;
+            } else {
+                std::cout << "Press h to get a hint: " << get_hint_word() << "\n" << std::endl;
+            }
+           
 
             cout << "What do you think the word is? ";
 
             std::cin >> guess;
 
 
-            if (strcmp(guess, hint) == 0) {
+            if (strcmp(guess, hint) == 0 && !hints_done) {
                 points -= 1;
                 score -= 25;
                 get_hint();
                 got_hint = true;
+                if (strcmp(get_hint_word(), get_original_word()) == 0) {
+                    hints_done = true;
+                }
 
             }
             else if (strcmp(guess, get_original_word()) != 0) {
@@ -224,6 +233,20 @@ int Game::get_score(double sec, double streak) {
     return score;
 }
 
+
+void Game::reset_words() {
+    int size = strlen(original_word);
+
+    for (int i = 0; i < size; i++) {
+        original_word[i] = '\0';
+        scrambled_word[i] = '\0';
+        hint_word[i] = '\0';
+    }
+}
+
+
+
+
 void Game::add_score(int score) {
     char score_line[10];
     bool valid = false;
@@ -249,6 +272,9 @@ void Game::add_score(int score) {
 
 
 }
+
+
+
 
 
 

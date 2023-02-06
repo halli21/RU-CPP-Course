@@ -5,23 +5,7 @@ class Game {
  public:
     Game();
 
-    void get_random_word();
-
-    void scramble_word();
-
-    char* get_original_word();
-
-    char* get_scrambled_word();
-
     void get_main_menu();
-
-    void interval();
-
-    void get_dashes();
-
-    void get_hint();
-
-    char* get_hint_word();
 
     void play_game();
 
@@ -33,10 +17,29 @@ class Game {
     char scrambled_word[45];
     char hint_word[45];
 
+    void get_random_word();
+
+    void scramble_word();
+
+    char* get_original_word();
+
+    char* get_scrambled_word();
+
+    void interval();
+
+    void get_dashes();
+
+    void get_hint();
+
+    char* get_hint_word();
 
     int get_score(double, double);
 
+    void reset_words();
+
     void add_score(int);
+
+
 
 };
 
