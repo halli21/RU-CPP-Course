@@ -26,7 +26,7 @@ int main() {
 
         test.get_random_word();
         test.scramble_word();
-
+       
         while (!end_game) {
 
             test.interval();
