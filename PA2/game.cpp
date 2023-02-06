@@ -11,6 +11,8 @@ Game::Game() {
     strcpy(word_file, "words.txt");
     strcpy(original_word, "");
     strcpy(scrambled_word, "");
+    strcpy(hint_word, "");
+
 }
 
 char* Game::get_original_word() {
@@ -83,4 +85,29 @@ void Game::interval() {
         std::cout << "-";
     }
     std::cout << "\n" << std::endl;
+}
+
+
+void Game::get_dashes() {
+    int size = strlen(original_word);
+
+    for (int i = 0; i < size; i++) {
+        hint_word[i] = '-';
+    }
+    
+}
+
+void Game::hint(){
+    int size = strlen(original_word);
+    int rand_index;
+
+    srand (time(NULL));
+    rand_index = rand() % size + 0;
+
+    hint_word[rand_index] =  original_word[rand_index];
+     
+}
+
+char* Game::get_hint(){
+    return hint_word;
 }

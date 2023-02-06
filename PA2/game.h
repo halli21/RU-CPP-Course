@@ -17,9 +17,16 @@ class Game {
 
     void interval();
 
+    void get_dashes();
+
+    void hint();
+
+    char* get_hint();
+
  private:
     char word_file[10];
     char original_word[45];   //lengsta orð ever er 45 stafir
     char scrambled_word[45];
+    char hint_word[45]; 
 
 };

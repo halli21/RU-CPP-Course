@@ -22,6 +22,8 @@ int main() {
         //system("clear");
 
         char guess[45];
+        char hint[45];
+        hint[0] = 'h';
         bool end_game = false;
 
         test.get_random_word();
@@ -32,12 +34,23 @@ int main() {
             test.interval();
 
             std::cout << "Your scrambled word is " << "'" << test.get_scrambled_word() << "'\n" << std::endl;
+                
+
+            test.get_dashes();
+            std::cout << "Press h to get a hint: " << test.get_hint() << "'\n" << std::endl;
+
 
             cout << "What do you think the word is? ";
 
             std::cin >> guess;
 
-            if (strcmp(guess, test.get_original_word()) != 0) {
+
+            if (strcmp(guess, hint) == 0){
+                std::cout << "HINT" << std::endl;
+                test.hint();
+
+            }
+            else if (strcmp(guess, test.get_original_word()) != 0) {
                 char continue_game;
 
                 cout << "\n\nWrong, do you want to guess again (y or n)? ";
@@ -48,7 +61,8 @@ int main() {
                     end_game = true;
                 }
 
-            } else {
+            } 
+            else {
 
                 std::cout << "\n\nCorrect!\n" << std::endl;
                 
