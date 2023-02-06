@@ -4,6 +4,9 @@
 #include <stdlib.h>  /* srand, rand */
 #include <time.h>
 #include "game.h"
+#include <chrono>
+
+
 
 using namespace std;
 
@@ -135,12 +138,15 @@ void Game::play_game() {
     while (points > 0) {
 
         bool correct = false;
+    
+        std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-        get_random_word();
-        scramble_word();
-        get_dashes();
     
         while (!correct) {
+
+            get_random_word();
+            scramble_word();
+            get_dashes();
 
             interval();
 
@@ -164,8 +170,15 @@ void Game::play_game() {
 
             } 
             else {
+                std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+                double seconds = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.00;
+
                 std::cout << "\n\nCorrect!\n" << std::endl;
+                std::cout << "You were: " << seconds << " seconds"<< std::endl;
+
                 correct = true;
+
+        
             }
 
         }
