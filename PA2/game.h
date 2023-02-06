@@ -30,7 +30,6 @@ class Game {
     char original_word[45];   //lengsta orð ever er 45 stafir
     char scrambled_word[45];
     char hint_word[45];
-    double score;
 
 };
 

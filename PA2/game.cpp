@@ -123,7 +123,7 @@ char* Game::get_hint_word() {
 
 
 void Game::play_game() {
-    bool end_game = false;
+
     char guess[45];
     char hint[45];
     hint[0] = 'h';
@@ -132,17 +132,15 @@ void Game::play_game() {
     // reikna score
     int right_answer = 0;
 
+    while (points > 0) {
 
-    get_random_word();
-    scramble_word();
-    get_dashes();
+        bool correct = false;
 
-    while (score > 0) { 
         get_random_word();
         scramble_word();
         get_dashes();
     
-        while (!end_game) {
+        while (!correct) {
 
             interval();
 
@@ -155,24 +153,19 @@ void Game::play_game() {
             std::cin >> guess;
 
 
-            if (strcmp(guess, hint) == 0){
+            if (strcmp(guess, hint) == 0) {
                 points -= 1;
                 get_hint();
 
             }
             else if (strcmp(guess, get_original_word()) != 0) {
-                cout << "\n\nWrong, try again!";
-
+                cout << "\n\nWrong, try again!\n";
                 points -= 0.25;
-
-                std::cout << score << std::endl;
 
             } 
             else {
-
                 std::cout << "\n\nCorrect!\n" << std::endl;
-                
-                end_game = true;
+                correct = true;
             }
 
         }
