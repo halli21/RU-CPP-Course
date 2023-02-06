@@ -34,8 +34,7 @@ class Game {
     char hint_word[45];
 
 
-
-    int get_score(double);
+    int get_score(double, double);
 
     void add_score(int);
 
