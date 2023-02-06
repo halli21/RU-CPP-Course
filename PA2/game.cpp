@@ -124,7 +124,6 @@ char* Game::get_hint_word() {
 }
 
 
-
 void Game::play_game() {
 
     char guess[45];
@@ -133,20 +132,20 @@ void Game::play_game() {
     double points = 10.0;
 
     // reikna score
+    int score = 0;
     int right_answer = 0;
 
     while (points > 0) {
 
         bool correct = false;
+
+        get_random_word();
+        scramble_word();
+        get_dashes();
     
         std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    
         while (!correct) {
-
-            get_random_word();
-            scramble_word();
-            get_dashes();
 
             interval();
 
@@ -161,6 +160,7 @@ void Game::play_game() {
 
             if (strcmp(guess, hint) == 0) {
                 points -= 1;
+                score -= 25;
                 get_hint();
 
             }
@@ -178,11 +178,42 @@ void Game::play_game() {
 
                 correct = true;
 
-        
-            }
+                int correct_score = get_score(seconds);
+                score += correct_score;
 
+                std::cout << score << std::endl;
+            }
         }
     }   
+}
+
+int Game::get_score(double sec) {
+    int score = 100;
+
+    if (sec <= 20) {
+        score += 100;
+    } 
+    else if ((20 < sec) && (sec <= 40)) {
+        score += 75;
+    }
+    else if ((40 < sec) && (sec <= 60)) {
+        score += 50;
+    }
+    else if ((60 < sec) && (sec <= 90)) {
+        score += 25;
+    }
+
+    return score;
+}
+
+void Game::add_score(int score) {
+    char initials[3];
+
+    cout << "\nPlease enter your initials (max 3 char): ";
+    std::cin >> initials;
+
+
+
 }
 
 
