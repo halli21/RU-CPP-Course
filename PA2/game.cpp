@@ -95,6 +95,7 @@ void Game::interval() {
 void Game::get_dashes() {
     int size = strlen(original_word);
 
+
     for (int i = 0; i < size; i++) {
         hint_word[i] = '-';
     }
@@ -131,6 +132,7 @@ void Game::play_game() {
     hint[0] = 'h';
     double points = 10.0;
     bool got_hint = false;
+    double streak = 1.0;
 
     // reikna score
     int score = 0;
@@ -152,7 +154,7 @@ void Game::play_game() {
 
             std::cout << "Your scrambled word is " << "'" << get_scrambled_word() << "'\n" << std::endl;
 
-            std::cout << "Press h to get a hint: " << get_hint_word() << "'\n" << std::endl;
+            std::cout << "Press h to get a hint: " << get_hint_word() << "\n" << std::endl;
 
             cout << "What do you think the word is? ";
 
@@ -180,29 +182,41 @@ void Game::play_game() {
 
                 correct = true;
 
-                int correct_score = get_score(seconds);
+                if (!got_hint){
+                    streak += 0.2;
+                }
+                else
+                {
+                    streak = 1.00;
+                    got_hint = true;
+                }
+                
+
+                int correct_score = get_score(seconds, streak);
                 score += correct_score;
 
                 std::cout << score << std::endl;
+
+                //strcpy(hint_word, "");
             }
         }
     }   
 }
 
-int Game::get_score(double sec) {
+int Game::get_score(double sec, double streak) {
     int score = 100;
 
     if (sec <= 20) {
-        score += 100;
+        score += 100 * streak;
     } 
     else if ((20 < sec) && (sec <= 40)) {
-        score += 75;
+        score += 75 * streak;
     }
     else if ((40 < sec) && (sec <= 60)) {
-        score += 50;
+        score += 50 * streak;
     }
     else if ((60 < sec) && (sec <= 90)) {
-        score += 25;
+        score += 25 * streak;
     }
 
     return score;
