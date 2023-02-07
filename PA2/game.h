@@ -16,8 +16,10 @@ class Game {
     char scrambled_word[45];
     char hint_word[45];
     DynamicArray words_arr;
-   
+    DynamicArray highscore_arr;
 
+   
+    void get_highscore_arr();
 
     void get_words_arr();
 
@@ -42,6 +44,8 @@ class Game {
     void reset_words();
 
     void add_score(int);
+
+    void show_highscore();
 
 };
 

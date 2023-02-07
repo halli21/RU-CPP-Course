@@ -221,7 +221,6 @@ void Game::play_game() {
                     score += correct_score;
 
                 }
-                //strcpy(hint_word, "");
             } else {
                 correct = true;
 
@@ -231,6 +230,19 @@ void Game::play_game() {
     interval();
     std::cout << "\nGame Over! You ran out of points, your final score is " << score << ".\n" << std::endl;
     add_score(score);
+    int highscore_option;
+    std::cout << "\n\nChoose 1 to see full highscore table\nChoose 2 to see top 5 higscores\n";
+    std::cin >> highscore_option;
+    std::cout << "\n";
+    if (highscore_option == 1){
+        show_highscore();
+    }
+    else if (highscore_option == 2)
+    {
+        /* show_top5*/
+    }
+    
+
 }
 
 int Game::get_score(double sec, double streak) {
@@ -289,7 +301,40 @@ void Game::add_score(int score) {
 }
 
 
+void Game::show_highscore() {
+
+    int arr_size = highscore_arr.get_size();
+
+    if (arr_size == 0) {
+        get_highscore_arr();
+
+        int highscore = 0;
+        for (int i = 0; i < highscore_arr.get_size(); i++)
+        {
+            std::cout << highscore_arr[i] << std::endl;
+
+        }
+
+    }else
+    {
+        std::cout << "No highscore yet" << std::endl;
+    }
+
+}
 
 
 
+void Game::get_highscore_arr() {
+    char highscore[45];
+    const int max = 45;
+
+    ifstream fin;
+    fin.open(highscore_file);
+
+    while (fin.getline(highscore, max)) {
+        highscore_arr.push_back(highscore);
+    }
+
+    fin.close();
+ }
 
