@@ -143,8 +143,9 @@ char* Game::get_hint_word() {
 void Game::play_game() {
 
     char guess[45];
-    char hint[45];
+    char hint[2];
     hint[0] = 'h';
+    hint[1] = '\0';
     double points = 10.0;
     bool got_hint = false;
     double streak = 1.0;
@@ -181,6 +182,9 @@ void Game::play_game() {
                 cout << "What do you think the word is? ";
 
                 std::cin >> guess;
+
+                cout << "-->" << guess << "<--" << endl;
+                cout << "-->" << hint << "<--" << endl;
 
 
                 if (strcmp(guess, hint) == 0 && !hints_done) {
