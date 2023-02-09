@@ -96,7 +96,7 @@ void Game::scramble_word() {
 }
 
 void Game::get_main_menu() {
-    std::cout << "\nWelcome to Word jumble\n\n1 - Play" << std::endl;
+    std::cout << "\nWelcome to Word jumble\n\n1 - Play\n2 - Highscore table\n3 - Top 5 scores\n0 - Quit" << std::endl;
 }
 
 
@@ -183,9 +183,6 @@ void Game::play_game() {
 
                 std::cin >> guess;
 
-                cout << "-->" << guess << "<--" << endl;
-                cout << "-->" << hint << "<--" << endl;
-
 
                 if (strcmp(guess, hint) == 0 && !hints_done) {
                     points -= 1;
@@ -233,19 +230,7 @@ void Game::play_game() {
     }
     interval();
     std::cout << "\nGame Over! You ran out of points, your final score is " << score << ".\n" << std::endl;
-    add_score(score);
-    int highscore_option;
-    std::cout << "\n\nChoose 1 to see full highscore table\nChoose 2 to see top 5 higscores\n";
-    std::cin >> highscore_option;
-    std::cout << "\n";
-    if (highscore_option == 1){
-        show_highscore();
-    }
-    else if (highscore_option == 2)
-    {
-        show_top5();
-    }
-    
+    add_score(score);    
 
 }
 
@@ -324,8 +309,6 @@ void Game::show_highscore() {
             std::cout << highscore_arr[i] << std::endl;
         }
 
-    
-   
 
 }
 

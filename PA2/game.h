@@ -8,6 +8,10 @@ class Game {
 
     void play_game();
 
+    void show_highscore();
+
+    void show_top5();
+
 
  private:
     char word_file[10];
@@ -45,9 +49,6 @@ class Game {
 
     void add_score(int);
 
-    void show_highscore();
-
-    void show_top5();
 
 
 
