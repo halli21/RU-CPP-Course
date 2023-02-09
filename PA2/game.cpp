@@ -315,7 +315,6 @@ void Game::show_highscore() {
         for (int i = 0; i < highscore_arr.get_size(); i++)
         {
             std::cout << highscore_arr[i] << std::endl;
-
         }
 
     } 
@@ -324,7 +323,6 @@ void Game::show_highscore() {
     }
 
 }
-
 
 
 
