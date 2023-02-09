@@ -2,9 +2,8 @@ hjf 50000
 sig 60000
 ble 60060
 boo 30303
-hfj 950
-hfj 810
-hfj 1170
-boo 370
-yes 570
-noo 1170
+hfj 20004
+lks 2030
+kdl 94
+sjl 1000000000
+aba 370

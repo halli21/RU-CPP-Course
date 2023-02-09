@@ -280,7 +280,7 @@ void Game::reset_words() {
 
 void Game::add_score(int score) {
     bool valid = false;
-    char input[3];
+    char input[4];
 
 
     while (!valid) {
@@ -288,6 +288,7 @@ void Game::add_score(int score) {
         std::cin >> input;
         if (strlen(input) == 3) {
             valid = true;
+            input[3] = '\0';
         }
     }
 
@@ -312,15 +313,15 @@ void Game::show_highscore() {
     if (arr_size == 0) {
         get_highscore_arr();
 
-        for (int i = 0; i < highscore_arr.get_size(); i++)
+    }
+
+    for (int i = 0; i < highscore_arr.get_size(); i++)
         {
             std::cout << highscore_arr[i] << std::endl;
         }
 
-    } 
-    else {
-        std::cout << "No highscore yet" << std::endl;
-    }
+    
+   
 
 }
 
