@@ -280,14 +280,15 @@ void Game::reset_words() {
 
 void Game::add_score(int score) {
     bool valid = false;
-    char input[3];
+    char input[4];
 
 
     while (!valid) {
-        cout << "\nPlease enter your initials to save score (max 3 char): ";
+        cout << "\nPlease enter your initials to save score (3 char): ";
         std::cin >> input;
-        if (strlen(input) <= 3) {
+        if (strlen(input) == 3) {
             valid = true;
+            input[3] = '\0';
         }
     }
 
@@ -345,11 +346,13 @@ void Game::get_highscore_arr() {
 
  void Game::show_top5() {
 
-    DynamicArray copy_arr = highscore_arr;
 
-    if (copy_arr.get_size() == 0) {
+    if (highscore_arr.get_size() == 0) {
         get_highscore_arr();
     }
+
+    DynamicArray copy_arr = highscore_arr;
+
 
     for (int i = 0; i < 5; i++) {
         int highest_i = 0;
