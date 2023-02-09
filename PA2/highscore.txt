@@ -2,7 +2,9 @@ hjf 50000
 sig 60000
 ble 60060
 boo 30303
-hfj¶ 950
-hfj* 810
-hfj’ 1170
-boor 370
+hfj 950
+hfj 810
+hfj 1170
+boo 370
+yes 570
+noo 1170
