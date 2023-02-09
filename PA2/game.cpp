@@ -294,11 +294,15 @@ void Game::add_score(int score) {
     ofstream fout;
     fout.open(highscore_file, ios::app);
 
-    fout << score << ' ' << input << std::endl;
+    fout << input << ' ' << score << std::endl;
 
     fout.close();
 
 }
+
+
+
+
 
 
 void Game::show_highscore() {
@@ -313,8 +317,8 @@ void Game::show_highscore() {
             std::cout << highscore_arr[i] << std::endl;
         }
 
-    }else
-    {
+    } 
+    else {
         std::cout << "No highscore yet" << std::endl;
     }
 
