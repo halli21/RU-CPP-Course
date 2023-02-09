@@ -344,9 +344,12 @@ void Game::get_highscore_arr() {
 
 
  void Game::show_top5() {
+
     DynamicArray copy_arr = highscore_arr;
 
-    int arr_size = highscore_arr.get_size();
+    if (copy_arr.get_size() == 0) {
+        get_highscore_arr();
+    }
 
     for (int i = 0; i < 5; i++) {
         int highest_i = 0;
