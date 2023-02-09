@@ -16,6 +16,10 @@ Game::Game() {
     memset(original_word, 0, sizeof(original_word));
     memset(scrambled_word, 0, sizeof(scrambled_word));
     memset(hint_word, 0, sizeof(hint_word));
+    get_words_arr();
+    get_highscore_arr();
+
+
 
 }
 
@@ -48,11 +52,6 @@ void Game::get_random_word() {
     int rand_line;
 
     int arr_size = words_arr.get_size();
-
-    if (arr_size == 0) {
-        get_words_arr();
-    }
-
 
 
     srand (time(NULL));
@@ -269,7 +268,8 @@ void Game::reset_words() {
 
 void Game::add_score(int score) {
     bool valid = false;
-    char input[4];
+    char input[45];
+    memset(input, 0, sizeof(input));
 
 
     while (!valid) {
@@ -287,6 +287,15 @@ void Game::add_score(int score) {
     fout << input << ' ' << score << std::endl;
 
     fout.close();
+
+    char sScore[45];
+    char empty[45];
+    snprintf(sScore, sizeof(sScore), "%d", score);
+    empty[0] = ' ';
+    strcat(input, empty);
+    strcat(input, sScore);
+
+    highscore_arr.push_back(input);
 
 }
 
