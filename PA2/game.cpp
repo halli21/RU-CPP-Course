@@ -312,15 +312,15 @@ void Game::show_highscore() {
     if (arr_size == 0) {
         get_highscore_arr();
 
-        for (int i = 0; i < highscore_arr.get_size(); i++)
+    }
+
+    for (int i = 0; i < highscore_arr.get_size(); i++)
         {
             std::cout << highscore_arr[i] << std::endl;
         }
 
-    } 
-    else {
-        std::cout << "No highscore yet" << std::endl;
-    }
+    
+   
 
 }
 
