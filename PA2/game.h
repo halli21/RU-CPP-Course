@@ -47,6 +47,8 @@ class Game {
 
     void show_highscore();
 
+    void show_top5();
+
 };
 
 
