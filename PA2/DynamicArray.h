@@ -10,6 +10,10 @@ class DynamicArray {
 
     char* operator[](int index) const;
 
+    void remove(int index);
+
+    DynamicArray(const DynamicArray& other);
+
     virtual ~DynamicArray();
 
 

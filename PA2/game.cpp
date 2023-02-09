@@ -239,7 +239,7 @@ void Game::play_game() {
     }
     else if (highscore_option == 2)
     {
-        /* show_top5*/
+        show_top5();
     }
     
 
@@ -325,9 +325,7 @@ void Game::show_highscore() {
 
 }
 
-void Game::show_top5() {
-    
-}
+
 
 
 
@@ -343,5 +341,28 @@ void Game::get_highscore_arr() {
     }
 
     fin.close();
+ }
+
+
+
+ void Game::show_top5() {
+    DynamicArray copy_arr = highscore_arr;
+
+    int arr_size = highscore_arr.get_size();
+
+    for (int i = 0; i < 5; i++) {
+        int highest_i = 0;
+        int highest_num = 0;
+        for (int j = 0; j < copy_arr.get_size(); j++) {
+            int num = atoi(copy_arr[j] + 4);
+            
+            if (highest_num < num) {
+                highest_num = num;
+                highest_i = j;
+            }
+        }
+        std::cout << copy_arr[highest_i] << std::endl;
+        copy_arr.remove(highest_i);
+    }
  }
 

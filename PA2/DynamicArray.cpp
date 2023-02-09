@@ -38,6 +38,34 @@ char* DynamicArray::operator[](int index) const {
     return arr[index];
 }
 
+void DynamicArray::remove(int index) {
+    if (index >= size || index < 0) {
+        std::cout << "Index out of range" << std::endl;
+        return;
+    }
+
+    delete[] arr[index];
+
+    for (int i = index; i < size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+
+    size--;
+}
+
+
+DynamicArray::DynamicArray(const DynamicArray& other) {
+    size = other.size;
+    capacity = other.capacity;
+    arr = new char*[capacity];
+
+    for (int i = 0; i < size; i++) {
+        arr[i] = new char[strlen(other.arr[i]) + 1];
+        strcpy(arr[i], other.arr[i]);
+    }
+}
+
+
 DynamicArray::~DynamicArray() {
         for (int i = 0; i < size; i++) {
             delete[] arr[i];
