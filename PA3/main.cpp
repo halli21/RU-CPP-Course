@@ -27,7 +27,7 @@ int main() {
 
     Huffman hman;
 
-     string input_filename = "text_file_01_org.txt";
+    string input_filename = "text_file_01_org.txt";
 
     string input_string;
     string line;
