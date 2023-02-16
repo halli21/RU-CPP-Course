@@ -63,7 +63,10 @@
     "variant": "cpp",
     "vector": "cpp",
     "algorithm": "cpp",
-    "concepts": "cpp"
+    "concepts": "cpp",
+    "__tree": "cpp",
+    "map": "cpp",
+    "filesystem": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",
