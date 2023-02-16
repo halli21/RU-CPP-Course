@@ -66,7 +66,8 @@
     "concepts": "cpp",
     "__tree": "cpp",
     "map": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "queue": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

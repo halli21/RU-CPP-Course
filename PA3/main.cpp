@@ -28,6 +28,7 @@ int main() {
     Huffman hman;
 
     string input_filename = "text_file_01_org.txt";
+    string output_filename = "output.txt";
 
     string input_string;
     string line;
@@ -45,7 +46,7 @@ int main() {
 
     fin.close();
 
-    hman.encode(input_string);
+    hman.encode(input_string, output_filename);
 
     return 0;
 

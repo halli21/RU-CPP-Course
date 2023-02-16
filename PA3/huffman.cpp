@@ -15,50 +15,51 @@ Huffman::Huffman() {
 
 }
 
-void Huffman::build_tree(string input, map<char, int> char_map) {
+HuffmanNode* Huffman::build_tree(map<char, int> char_map) {
     priority_queue<HuffmanNode*, vector<HuffmanNode*>,Compare> pq;
-    //priority_queue<HuffmanNode*> pq;
     std::map<char, int>::iterator it;
 
     for (it = char_map.begin(); it != char_map.end(); it++) {
         if (it->second > 0) {
             HuffmanNode *node = NULL; 
             node = new HuffmanNode(it->first, it->second);
-            //node->character = it->first;
-            //node->frequency = it->second;
-            pq.push(node);
-            cout << node->character << " : " << node->frequency  << endl;
+            pq.push(node); 
         }
     }
 
-    while(!pq.empty()) {
+    while(pq.size() != 1) {
 
         HuffmanNode* left = pq.top();
         pq.pop();
 
-        cout << left->character << " : " << left->frequency  << endl;
-
         HuffmanNode* right = pq.top();
         pq.pop();
 
-
-        cout << right->character << " : " << right->frequency  << endl;
-
-        HuffmanNode* node = new HuffmanNode('$', left->frequency + right->frequency);
+        HuffmanNode* node = new HuffmanNode('*', left->frequency + right->frequency);
         node->left = left;
         node->right = right;
-
-
-        cout << node->character << " : " << node->frequency  << endl;
  
         pq.push(node);
     }
 
-
+    return pq.top();
 }
 
 
-void Huffman::encode(string input) {
+void Huffman::get_codes(HuffmanNode* root, map<char, string> &code_map, string code) {
+
+    if (root->left == nullptr && root->right == nullptr) {
+        code_map[root->character] = code;
+        return;
+    }
+
+    get_codes(root->left, code_map, code + "1");
+    get_codes(root->right, code_map, code + "0");
+}
+
+
+
+void Huffman::encode(string input, string output_filename) {
     map<char, int> char_map;
 
     for (char c = 'A'; c <= 'Z'; c++) {
@@ -79,10 +80,23 @@ void Huffman::encode(string input) {
         } 
     }
 
+    HuffmanNode* root = build_tree(char_map);
 
-    build_tree(input, char_map);
+    map<char, string> code_map;
+    get_codes(root, code_map, "");
+
+
+    std::map<char, int>::iterator it;
+
+    for (it = char_map.begin(); it != char_map.end(); it++) {
+        if (it->second > 0) {
+            cout << it->first << " : " <<code_map[it->first] << endl;
+        }
+    }
 
 }
+
+
 
 
 
