@@ -40,7 +40,7 @@ int main() {
 
     while(fin) {
         fin >> line;
-        input_string += line;
+        input_string += line + "\n";
         if( fin.eof() ) break;
     }
 
