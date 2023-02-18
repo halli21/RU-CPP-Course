@@ -122,10 +122,12 @@ void Huffman::encode(string input_string, string output_filename) {
     }
     fout << "\\" << "\n" << endl;
 
-    fout << encoded_text << endl;
+    fout << encoded_text;
 
     fout.close();
 }
+
+
 
 
 HuffmanNode* Huffman::build_tree_from_code_map(map<char, string> code_map) {
@@ -167,6 +169,7 @@ void Huffman::decode(map<char, string> code_map, string code_string, string outp
 
     HuffmanNode* current_node = root;
 
+
     for (int i = 0; i < code_string.length(); i++) {
 
         char character = code_string[i];
@@ -185,6 +188,7 @@ void Huffman::decode(map<char, string> code_map, string code_string, string outp
             fout << current_node->character;
             current_node = root;
         }
+    
     }
 
     fout.close();
