@@ -16,7 +16,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
     if (argc < 4) {
-        std::cout << "Usage: " << argv[0] << " [-c|-u] input.txt output.txt" << std::endl;
+        cout << "Usage: " << argv[0] << " [-c|-u] input.txt output.txt" << endl;
         return 1;
     }
 
