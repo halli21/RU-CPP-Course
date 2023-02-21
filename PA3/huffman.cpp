@@ -97,7 +97,6 @@ void Huffman::encode(vector<char>& data, string output_filename) {
     HuffmanNode* root = build_tree_from_byte_map(byte_map);
 
    
-
     map<string, string> code_map;
     get_codes(root, code_map, "");
 
@@ -123,9 +122,7 @@ void Huffman::encode(vector<char>& data, string output_filename) {
     fout << encoded_text;
 
     fout.close();
-    
 }
-
 
 
 
@@ -188,12 +185,10 @@ void Huffman::decode(map<string, string> code_map, string code_string, string ou
             fout << current_node->character;
             current_node = root;
         }
-    
     }
 
     fout.close();
 }
-
 
 
 Huffman::~Huffman() {

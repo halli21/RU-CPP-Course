@@ -15,7 +15,6 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-    
     if (argc < 4) {
         std::cout << "Usage: " << argv[0] << " [-c|-u] input.txt output.txt" << std::endl;
         return 1;
@@ -38,18 +37,15 @@ int main(int argc, char* argv[]) {
         ifstream fin;
         fin.open(input_filename, ios::binary);
 
-        
         fin.seekg (0, ios::end);
         int size = fin.tellg();
         fin.seekg (0, ios::beg);
-
 
         vector<char> data(size);
 
         fin.read(data.data(), size);
         fin.close();
         
-
         hman.encode(data, output_filename);
 
     } 

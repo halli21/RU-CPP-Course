@@ -3,7 +3,6 @@
 using namespace std;
 
 
-
 class HuffmanNode {       
    public:
       string character;
@@ -28,8 +27,6 @@ class Compare {
 };
  
  
-
-
 class Huffman {       
    public:
       Huffman();
@@ -48,7 +45,4 @@ class Huffman {
       string huffman_encoding(map<string, string> code_map, vector<char>& data);
 
       HuffmanNode* build_tree_from_code_map(map<string, string> code_map);
-
-    
-
 };
