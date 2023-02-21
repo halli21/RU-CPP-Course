@@ -17,7 +17,7 @@ Huffman::Huffman() {
 }
 
 
-HuffmanNode* Huffman::build_tree_from_char_map(map<char, int> char_map) {
+HuffmanNode* Huffman::build_tree_from_byte_map(map<string, int> char_map) {
     priority_queue<HuffmanNode*, vector<HuffmanNode*>,Compare> pq;
 
     for (auto it = char_map.begin(); it != char_map.end(); it++) {
@@ -36,7 +36,7 @@ HuffmanNode* Huffman::build_tree_from_char_map(map<char, int> char_map) {
         HuffmanNode* right = pq.top();
         pq.pop();
 
-        HuffmanNode* node = new HuffmanNode('*', left->frequency + right->frequency);
+        HuffmanNode* node = new HuffmanNode("*", left->frequency + right->frequency);
         node->left = left;
         node->right = right;
  
@@ -47,7 +47,7 @@ HuffmanNode* Huffman::build_tree_from_char_map(map<char, int> char_map) {
 }
 
 
-void Huffman::get_codes(HuffmanNode* root, map<char, string> &code_map, string code) {
+void Huffman::get_codes(HuffmanNode* root, map<string, string> &code_map, string code) {
 
     if (root->left == nullptr && root->right == nullptr) {
         code_map[root->character] = code;
@@ -59,80 +59,79 @@ void Huffman::get_codes(HuffmanNode* root, map<char, string> &code_map, string c
 }
 
 
-string Huffman::huffman_encoding(map<char, string> code_map, string input_string) {
+string Huffman::huffman_encoding(map<string, string> code_map, vector<char>& data) {
 
     string encoded_text;
 
-    for (int i = 0; i < input_string.length(); i++) {
-        char current_char = input_string[i];
+    for (int i = 0; i < data.size(); i++) {
+        string byte = "";
+        byte += data[i];
 
-        if (current_char == '\n'){
-            encoded_text += '\n';
-        } 
-        else if (current_char == ' '){
-            encoded_text += ' ';
-        } 
-        else {
-            encoded_text += code_map[current_char];
-        }
+        encoded_text += code_map[byte];
     }
 
     return encoded_text;
 }
 
 
-void Huffman::encode(string input_string, string output_filename) {
-    map<char, int> char_map;
 
-    for (char c = 'A'; c <= 'Z'; c++) {
-        char_map[c] = 0;
+void Huffman::encode(vector<char>& data, string output_filename) {
+    map<string, int> byte_map;
+
+    for (int i = 0; i <= 255; i++) {
+        string byte = "";
+        byte += ((char)i);
+        byte_map[byte] = 0;
     }
 
-    char_map['_'] = 0;
+    for (int i = 0; i < data.size(); i++) {
+        string byte = "";
+        byte += data[i];
 
-    for (char c = 'a'; c <= 'z'; c++) {
-        char_map[c] = 0;
-    }
-
-    for (int i = 0; i < input_string.length(); i++) {
-        char current_char = input_string[i];
-
-        if (char_map.find(current_char) != char_map.end()) {
-            char_map[current_char] += 1;
+        if (byte_map.find(byte) != byte_map.end()) {
+            byte_map[byte] += 1;
         } 
     }
 
+    
+    HuffmanNode* root = build_tree_from_byte_map(byte_map);
 
-    HuffmanNode* root = build_tree_from_char_map(char_map);
+   
 
-    map<char, string> code_map;
+    map<string, string> code_map;
     get_codes(root, code_map, "");
 
-    string encoded_text = huffman_encoding(code_map, input_string);
+    string encoded_text = huffman_encoding(code_map, data);
 
-
+    
     ofstream fout;
     fout.open(output_filename);
 
+    
+    for (auto it = byte_map.begin(); it != byte_map.end(); it++) {
 
-    for (auto it = char_map.begin(); it != char_map.end(); it++) {
-        if (it->second > 0) {
-            fout << it->first << " " << code_map[it->first] << endl;
+        if (code_map.find(it->first) != code_map.end()) {
+            fout << code_map[it->first] << "\n";
         }
+        else {
+            fout << "\n";
+        }
+
     }
     fout << "\\" << "\n" << endl;
 
     fout << encoded_text;
 
     fout.close();
+    
 }
 
 
 
 
-HuffmanNode* Huffman::build_tree_from_code_map(map<char, string> code_map) {
+HuffmanNode* Huffman::build_tree_from_code_map(map<string, string> code_map) {
 
-    HuffmanNode* root = new HuffmanNode('*', 0);
+    HuffmanNode* root = new HuffmanNode("*", 0);
 
     for (auto it = code_map.begin(); it != code_map.end(); it++) {
 
@@ -141,13 +140,13 @@ HuffmanNode* Huffman::build_tree_from_code_map(map<char, string> code_map) {
         for (char code : it->second) {
             if (code == '1') {
                 if (current_node->left == nullptr) {
-                    current_node->left = new HuffmanNode('*', 0);
+                    current_node->left = new HuffmanNode("*", 0);
                 }
                 current_node = current_node->left;
             } 
             else if (code == '0') {
                 if (current_node->right == nullptr) {
-                    current_node->right = new HuffmanNode('*', 0);
+                    current_node->right = new HuffmanNode("*", 0);
                 }
                 current_node = current_node->right;
             }
@@ -160,7 +159,8 @@ HuffmanNode* Huffman::build_tree_from_code_map(map<char, string> code_map) {
 }
 
 
-void Huffman::decode(map<char, string> code_map, string code_string, string output_filename) {
+
+void Huffman::decode(map<string, string> code_map, string code_string, string output_filename) {
 
     HuffmanNode* root = build_tree_from_code_map(code_map);
 
@@ -193,6 +193,7 @@ void Huffman::decode(map<char, string> code_map, string code_string, string outp
 
     fout.close();
 }
+
 
 
 Huffman::~Huffman() {

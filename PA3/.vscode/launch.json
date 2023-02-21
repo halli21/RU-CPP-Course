@@ -3,22 +3,11 @@
   "configurations": [
     {
       "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
+      "type": "lldb",
       "request": "launch",
       "args": [],
-      "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/arnar/Dropbox/RU/FORC/RU-CPP-Course/PA3",
-      "program": "c:/Users/arnar/Dropbox/RU/FORC/RU-CPP-Course/PA3/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
+      "cwd": "/Users/haraldurfridriksson/Desktop/V23/C++/RU-CPP-Course/PA3",
+      "program": "/Users/haraldurfridriksson/Desktop/V23/C++/RU-CPP-Course/PA3/build/Debug/outDebug"
     }
   ]
 }
