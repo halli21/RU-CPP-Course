@@ -1,19 +1,21 @@
+
 using namespace std;
 
 #define MAX_STAT 10
 #define MIN_STAT 0
 
+#include "being.h"
 
-class Being{
+
+class Person : public Being{
 public:
-    Being();
-    Being(int life, int strength, int intelligence);
+    Person();
+    Person(string gender, int fear);
     void print_data();
 
 protected:
-    int life;
-    int strength;
-    int intelligence;
+    string gender;
+    int fear;
 
 private:
     int valid_value(int value);

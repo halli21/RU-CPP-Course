@@ -29,7 +29,6 @@ Being::Being(int life, int strength, int intelligence) {
     this->intelligence = valid_value(intelligence);
 }
 
-
-void Being::print_being() {
-    cout << "my stats: "<< life << " " << strength << " " << intelligence << endl;
+void Being::print_data() {
+    cout << "my being stats: "<< life << " " << strength << " " << intelligence << endl;
 }

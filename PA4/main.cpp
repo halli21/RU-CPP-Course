@@ -1,12 +1,8 @@
 #include <iostream>
 
-#include <fstream>
-#include <string>
-#include <map>
-#include <list>
-#include <vector>
 
-#include "being.h"
+#include "person.h"
+
 
 using namespace std;
 
@@ -15,12 +11,13 @@ using namespace std;
 int main() {
 
     Being halli;
+    halli.print_data();
 
     Being arnar(111, 4, -10);
+    arnar.print_data();
 
-    halli.print_being();
-
-    arnar.print_being();
+    Person frosti;
+    frosti.print_data();
 
     return 0;
 }
