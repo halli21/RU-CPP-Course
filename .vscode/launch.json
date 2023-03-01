@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/haraldurfridriksson/Desktop/V23/C++/RU-CPP-Course/PA3/Version B",
-      "program": "/Users/haraldurfridriksson/Desktop/V23/C++/RU-CPP-Course/PA3/Version B/build/Debug/outDebug"
+      "cwd": "/Users/haraldurfridriksson/Desktop/V23/C++/RU-CPP-Course/PA4",
+      "program": "/Users/haraldurfridriksson/Desktop/V23/C++/RU-CPP-Course/PA4/build/Debug/outDebug"
     }
   ]
 }
