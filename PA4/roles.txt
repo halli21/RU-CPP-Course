@@ -1,0 +1,7 @@
+person, Nurse, [5,7], [3,7], [7,9], ["male", "female"], [0,10]
+person, Reporter, [5,7], [2,6], [6,8], ["male", "female"], [0,10]
+person, Professor, [4,6], [1,5], [8,10], ["male", "female"], [0,10]
+creature, Ghoul, [4,4], [4,4], [2,2], [true, false], [6,6]
+creature, Wolf, [4,4], [6,6], [5,5], [true, false], [2,2]
+eldritchHorror, Chthonian, [8,8], [7,7], [2,2], [true, false], [10,10], [1,1]
+eldritchHorror, Shoggoth, [8,8], [9,9], [6,6], [true, false], [10,10], [2,2]
