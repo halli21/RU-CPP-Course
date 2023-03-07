@@ -37,7 +37,24 @@
   "files.associations": {
     "iosfwd": "cpp",
     "filesystem": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "chrono": "cpp",
+    "limits": "cpp",
+    "ratio": "cpp",
+    "__bit_reference": "cpp",
+    "__node_handle": "cpp",
+    "atomic": "cpp",
+    "bitset": "cpp",
+    "cstddef": "cpp",
+    "deque": "cpp",
+    "__memory": "cpp",
+    "locale": "cpp",
+    "optional": "cpp",
+    "system_error": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "vector": "cpp",
+    "algorithm": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

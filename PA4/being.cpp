@@ -9,14 +9,17 @@ Being::Being() {
     this->life = 5;
     this->strength = 5;
     this->intelligence = 5;
+    
+    this->min_stat = 0;
+    this->max_stat = 10;
 }
 
-int Being::valid_value(int value) {
-    if (value < MIN_STAT) {
-        return MIN_STAT;
+int Being::valid_value(int value, int min, int max) {
+    if (value < min) {
+        return min;
     }
-    else if (value > MAX_STAT) {
-        return MAX_STAT;
+    else if (value > max) {
+        return max;
     }
     else {
         return value;
@@ -24,9 +27,9 @@ int Being::valid_value(int value) {
 }
 
 Being::Being(int life, int strength, int intelligence) {
-    this->life = valid_value(life);
-    this->strength = valid_value(strength);
-    this->intelligence = valid_value(intelligence);
+    this->life = valid_value(life, min_stat, max_stat);
+    this->strength = valid_value(strength, min_stat, max_stat);
+    this->intelligence = valid_value(intelligence, min_stat, max_stat);
 }
 
 void Being::print_data() {
@@ -46,11 +49,11 @@ int Being::get_intelligence_stat() {
 
 
 void Being::edit_life(int value) {
-    this->life = valid_value(value);
+    this->life = valid_value(value, min_stat, max_stat);
 }
 void Being::edit_strength(int value) {
-    this->strength = valid_value(value);
+    this->strength = valid_value(value, min_stat, max_stat);
 }
 void Being::edit_intelligence(int value) {
-    this->intelligence = valid_value(value);
+    this->intelligence = valid_value(value, min_stat, max_stat);
 }

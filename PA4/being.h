@@ -22,6 +22,10 @@ protected:
     int strength;
     int intelligence;
 
-private:
-    int valid_value(int value);
+    int min_stat;
+    int max_stat;
+
+    int valid_value(int value, int min, int max);
+
+
 };

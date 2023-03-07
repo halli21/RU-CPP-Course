@@ -8,24 +8,19 @@ using namespace std;
 Person::Person() {
     this->gender = "undefined";
     this->fear = 5;
+
+    min_fear_stat = 0;
+    max_fear_stat = 10;
 }
 
-int Person::valid_value(int value) {
-    if (value < MIN_STAT) {
-        return MIN_STAT;
-    }
-    else if (value > MAX_STAT) {
-        return MAX_STAT;
-    }
-    else {
-        return value;
-    }
+int Person::valid_value(int value, int min, int max) {
+    return Being::valid_value(value, min, max);
 }
 
 Person::Person(int life, int strength, int intel, string gender, int fear) 
 : Being(life,strength,intel){
     this->gender = gender;
-    this->fear = valid_value(fear);
+    this->fear = valid_value(fear, min_fear_stat, max_fear_stat);
 }
 
 void Person::print_data() {
@@ -46,5 +41,5 @@ void Person::edit_gender(string gender) {
 
 }
 void Person::edit_fear(int value) {
-    this->gender = valid_value(value);
+    this->gender = valid_value(value, min_fear_stat, max_fear_stat);
 }

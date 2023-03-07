@@ -30,17 +30,14 @@ int main() {
     }
     rolesFile.close();
 
-    cout << "Roles: " << endl;
+    //cout << "Roles: " << endl;
     for (int i = 0; i < roles.size(); i++) {
 
-        cout << roles[i] << endl;
+        //cout << roles[i] << endl;
     }
 
 
-
-    Being halli;
-    halli.print_data();
-
+    /*
     Role<Person> *thing = new Role<Person>("Reporter");
     
 
@@ -54,11 +51,46 @@ int main() {
 
     thing->type.edit_gender("Yellow");
 
-    cout << thing->type.Being.get_life() << endl;
+    cout << thing->type.get_gender() << endl;
+
+    cout << thing->type.get_life_stat() << endl;
+
+    thing->type.edit_life(8);
+
+    cout << thing->type.get_life_stat() << endl;
+
+    */
 
 
-    Person Siggi(10,10,10,"male",2);
-    Siggi.print_data();
+    Role<Investigator> *thing = new Role<Investigator>("Lice Spice");
+
+    cout << thing << endl;
+
+    thing->change_name("Ice Spice");
+
+    cout << thing << endl;
+
+    cout << thing->type.get_terror_stat() << endl;
+
+    thing->type.edit_terror(10);
+
+    cout << thing->type.get_terror_stat() << endl;
+
+    thing->type.edit_terror(1);
+
+    cout << thing->type.get_terror_stat() << endl;
+
+    cout << thing->type.get_gender() << endl;
+
+    thing->type.edit_gender("Yellow");
+
+    cout << thing->type.get_gender() << endl;
+
+    cout << thing->type.get_life_stat() << endl;
+
+    thing->type.edit_life(-10);
+
+    cout << thing->type.get_life_stat() << endl;
 
     return 0;
 }

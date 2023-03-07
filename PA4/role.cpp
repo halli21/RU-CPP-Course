@@ -28,5 +28,4 @@ public:
 protected:
     string name;
 
-    
 };
