@@ -10,7 +10,7 @@ using namespace std;
 class Person : public Being{
 public:
     Person();
-    Person(string gender, int fear);
+    Person(int life, int strength, int intel, string gender, int fear);
     void print_data();
 
 protected:

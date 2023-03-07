@@ -22,7 +22,8 @@ int Person::valid_value(int value) {
     }
 }
 
-Person::Person(string gender, int fear) {
+Person::Person(int life, int strength, int intel, string gender, int fear) 
+: Being(life,strength,intel){
     this->gender = gender;
     this->fear = valid_value(fear);
 }
