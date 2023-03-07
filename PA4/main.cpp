@@ -6,21 +6,27 @@
 
 using namespace std;
 
+
+#include "role.cpp"
+
+
+
+
 // int argc, char* argv[]
 
 int main() {
 
-    Being halli;
-    halli.print_data();
 
-    Being arnar(111, 4, -10);
-    arnar.print_data();
+    Role<Person> *thing = new Role<Person>("Reporter");
+    
 
-    Person frosti;
-    frosti.print_data();
+    cout << thing << endl;
 
-    Investigator logi;
-    logi.print_data();
+    thing->change_name("halli");
+
+    cout << thing << endl;
+
+    thing->type.print_data();
 
     return 0;
 }
