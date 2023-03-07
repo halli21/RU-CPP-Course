@@ -1,7 +1,10 @@
+
+#ifndef MY_BEING_CLASS_su389ru4
+#define MY_BEING_CLASS_su389ru4
+
+
 using namespace std;
 
-#define MAX_STAT 10
-#define MIN_STAT 0
 
 
 class Being{
@@ -29,3 +32,6 @@ protected:
 
 
 };
+
+
+#endif
