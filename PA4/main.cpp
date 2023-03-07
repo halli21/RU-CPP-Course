@@ -88,7 +88,12 @@ int main() {
 
     cout << thing << endl;
 
-    thing->type.print_data();
+    cout << thing->type.get_gender() << endl;
+
+    thing->type.edit_gender("Yellow");
+
+    cout << thing->type.Being.get_life() << endl;
+
 
     Person Siggi(10,10,10,"male",2);
     Siggi.print_data();
