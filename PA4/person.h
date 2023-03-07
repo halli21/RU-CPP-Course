@@ -12,6 +12,10 @@ public:
     Person();
     Person(string gender, int fear);
     void print_data();
+    string get_gender();
+    int get_fear_stat();
+    void edit_gender(string gender);
+    void edit_fear(int value);
 
 protected:
     string gender;

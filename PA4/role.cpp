@@ -23,11 +23,10 @@ public:
         this->name = name;
     }
     T type;
+    
 
 protected:
     string name;
-   
 
-private:
     
 };

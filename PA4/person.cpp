@@ -31,3 +31,19 @@ void Person::print_data() {
     cout << "my being stats: "<< life << " " << strength << " " << intelligence << endl;
     cout << "my person stats: "<< gender << " " << fear << endl;
 }
+
+string Person::get_gender() {
+    return this->gender;
+
+}
+int Person::get_fear_stat() {
+    return this->fear;
+}
+
+void Person::edit_gender(string gender) {
+    this->gender = gender;
+
+}
+void Person::edit_fear(int value) {
+    this->gender = valid_value(value);
+}
