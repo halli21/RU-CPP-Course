@@ -1,7 +1,7 @@
 #include <iostream>
 
 
-#include "person.h"
+#include "investigator.h"
 
 
 using namespace std;
@@ -18,6 +18,9 @@ int main() {
 
     Person frosti;
     frosti.print_data();
+
+    Investigator logi;
+    logi.print_data();
 
     return 0;
 }
