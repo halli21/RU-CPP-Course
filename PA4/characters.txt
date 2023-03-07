@@ -1,0 +1,7 @@
+creature;Ghoul;Ghoul 1;4;4;2;false;6
+creature;Ghoul;Ghoul 2;4;4;2;false;6
+creature;Ghoul;Ghoul boss;6;6;4;false;6
+creature;Wolf;Wolf 1;4;6;5;true;2
+creature;Wolf;Wolf 2;4;6;5;true;2
+creature;Wolf;Wolf 3;4;6;5;true;2
+investigator;Reporter;6;3;8;neutral;0;0
