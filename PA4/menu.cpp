@@ -11,15 +11,10 @@ Menu::Menu(){
 }
 
 bool Menu::valid_option(string option){
-    for (char c : option) {
-        if (!isdigit(c)) {
-            return false;
-        }
+    if (1 == option.length() && (option[0] >= '1' && option[0] <= '4')) {
+        return true;
     }
-    if ((int)option[0] < 1 || (int)option[0] > 4){
-        return false;
-    }
-    return true;
+    return false;
 }
 
 int Menu::get_action(){
@@ -29,7 +24,7 @@ int Menu::get_action(){
     cin >> option;
     
     if (valid_option(option) == true){
-        return (int)option[0];
+        return stoi(option);
     }
     return 0;
 }
