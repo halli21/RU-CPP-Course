@@ -34,3 +34,8 @@ int Investigator::get_terror_stat() {
 void Investigator::edit_terror(int value) {
     this->terror = valid_value(value, min_terror_stat, max_terror_stat);
 }
+
+void Investigator::print_stats(){
+    Person::print_stats();
+    cout << " - Terror: " << this->terror << endl;
+}

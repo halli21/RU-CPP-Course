@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sstream>
 
+#include "investigator.h"
+
 
 #include "menu.h"
 
@@ -13,6 +15,11 @@ enum Choice {invalid, create, edit, view, quit};
 // int argc, char* argv[]
 
 int main() {
+    Role<Investigator> *arnar = new Role<Investigator>;
+
+    arnar->print_stats();
+
+
 
     Menu my_menu;
     Choice my_choice;

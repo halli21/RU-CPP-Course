@@ -32,10 +32,6 @@ Being::Being(int life, int strength, int intelligence) {
     this->intelligence = valid_value(intelligence, min_stat, max_stat);
 }
 
-void Being::print_data() {
-    cout << "my being stats: "<< life << " " << strength << " " << intelligence << endl;
-}
-
 
 int Being::get_life_stat() {
     return this->life;
@@ -56,4 +52,11 @@ void Being::edit_strength(int value) {
 }
 void Being::edit_intelligence(int value) {
     this->intelligence = valid_value(value, min_stat, max_stat);
+}
+
+
+void Being::print_stats(){
+    cout << " - Life: " << this->life << endl;
+    cout << " - Strength: " << this->strength << endl;
+    cout << " - Intelligence: " << this->intelligence << endl;
 }

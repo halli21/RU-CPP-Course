@@ -29,6 +29,8 @@ public:
     void edit_strength(int value){Person::edit_strength(value);};
     void edit_intelligence(int value){Person::edit_intelligence(value);};
 
+    void print_stats();
+
 protected:
     int terror;
 

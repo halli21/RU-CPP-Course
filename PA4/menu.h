@@ -1,5 +1,5 @@
 
-#include "investigator.h"
+
 #include "eldritchHorror.h"
 #include "role.cpp"
 #include "species.cpp"

@@ -25,6 +25,10 @@ public:
     void edit_strength(int value){Being::edit_strength(value);};
     void edit_intelligence(int value){Being::edit_intelligence(value);};
 
+    void print_stats();
+
+
+
 protected:
     string gender;
     int fear;
@@ -33,4 +37,6 @@ protected:
     int max_fear_stat;
     
     int valid_value(int value, int min, int max);
+
+    
 };

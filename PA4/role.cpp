@@ -22,9 +22,14 @@ public:
     void change_name(string name) {
         this->name = name;
     }
+
+    void print_stats() {
+        cout << this->name << endl;
+        type.print_stats();
+    }
+
     T type;
     
-
 protected:
     string name;
 

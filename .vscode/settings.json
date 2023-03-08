@@ -56,7 +56,9 @@
     "vector": "cpp",
     "algorithm": "cpp",
     "ostream": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "__locale": "cpp",
+    "ios": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

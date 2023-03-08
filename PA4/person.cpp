@@ -43,3 +43,10 @@ void Person::edit_gender(string gender) {
 void Person::edit_fear(int value) {
     this->gender = valid_value(value, min_fear_stat, max_fear_stat);
 }
+
+
+void Person::print_stats(){
+    Being::print_stats();
+    cout << " - Gender: " << this->gender << endl;
+    cout << " - Fear: " << this->fear << endl;
+}

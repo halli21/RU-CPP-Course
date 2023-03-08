@@ -6,12 +6,10 @@
 using namespace std;
 
 
-
 class Being{
 public:
     Being();
     Being(int life, int strength, int intelligence);
-    void print_data();
     int get_life_stat();
     int get_strength_stat();
     int get_intelligence_stat();
@@ -19,6 +17,10 @@ public:
     void edit_life(int value);
     void edit_strength(int value);
     void edit_intelligence(int value);
+
+    void print_stats();
+
+
 
 protected:
     int life;
@@ -30,8 +32,6 @@ protected:
 
     int valid_value(int value, int min, int max);
 
-
 };
-
 
 #endif
