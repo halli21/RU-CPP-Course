@@ -9,15 +9,14 @@ using namespace std;
 
 
 
-
-
 class Menu{
 public:
-   
-
-protected:
-
+    Menu();
+    int get_action();
+    
 
 private:
+    string options;
+    bool valid_option(string option);
 };
    

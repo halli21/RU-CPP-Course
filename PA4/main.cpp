@@ -7,18 +7,40 @@
 
 #include "menu.h"
 
-enum Choice {create = 1, edit, view, quit};
+enum Choice {invalid, create, edit, view, quit};
 
 
 // int argc, char* argv[]
 
 int main() {
 
-    Choice my_choice;
     Menu my_menu;
+    Choice my_choice;
 
     while (true) {
-        /* code */
+        int int_choice = my_menu.get_action();
+        Choice my_choice = Choice(int_choice);
+
+        switch(my_choice){
+        case create:
+            cout << "create" << endl;
+            break;
+
+        case edit:
+            cout << "edit" << endl;
+            break;
+
+        case view:
+            cout << "view" << endl;
+            break;
+
+        case quit:
+            return 0;
+        
+        default:
+            cout << "Invalid option!\n" << endl;
+            break;
+        }
     }
     
 
