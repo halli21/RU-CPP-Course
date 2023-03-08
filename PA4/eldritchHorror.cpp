@@ -7,7 +7,9 @@ using namespace std;
 
 EldritchHorror::EldritchHorror() {
     this->traumatism = 2;
-    this->disquiet = 10;
+    Creature::edit_natural(false);
+    Creature::edit_disquiet(10);
+    
 
     this->min_traumatism_stat = 0;
     this->max_traumatism_stat = 3;
@@ -44,4 +46,10 @@ int EldritchHorror::get_traumatism_stat() {
 void EldritchHorror::edit_traumatism(int value) {
     this->traumatism = valid_value(value, min_traumatism_stat, max_traumatism_stat);
 
+}
+
+
+void EldritchHorror::print_stats(){
+    Creature::print_stats();
+    cout << " - Traumatism: " << this->traumatism << endl;
 }

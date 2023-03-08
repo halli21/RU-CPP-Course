@@ -13,10 +13,12 @@ class Menu{
 public:
     Menu();
     int get_action();
+    void create_character_menu();
     
 
 private:
-    string options;
-    bool valid_option(string option);
+    string menu_options;
+    string create_options;
+    bool valid_option(string option, int option_len);
+    void create_new_character();
 };
-   

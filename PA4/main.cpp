@@ -12,25 +12,18 @@
 enum Choice {invalid, create, edit, view, quit};
 
 
-// int argc, char* argv[]
-
 int main() {
-    Role<Investigator> *arnar = new Role<Investigator>;
-
-    arnar->print_stats();
-
-
-
+    
     Menu my_menu;
     Choice my_choice;
-
+    
     while (true) {
         int int_choice = my_menu.get_action();
         Choice my_choice = Choice(int_choice);
 
         switch(my_choice){
         case create:
-            cout << "create" << endl;
+            my_menu.create_character_menu();
             break;
 
         case edit:
@@ -51,8 +44,8 @@ int main() {
     }
     
 
-
     /*
+    
     vector<vector<string>> roles;
     vector<vector<string>> characters;
 
@@ -89,7 +82,9 @@ int main() {
         characters.push_back(temp);
     }
     charsFile.close();
+
     */
+    
 
 
     return 0;

@@ -1,8 +1,7 @@
 
 using namespace std;
 
-#define MAX_STAT 3
-#define MIN_STAT 0
+
 
 #include "creature.h"
 
@@ -28,6 +27,8 @@ public:
     void edit_life(int value){Creature::edit_life(value);};
     void edit_strength(int value){Creature::edit_strength(value);};
     void edit_intelligence(int value){Creature::edit_intelligence(value);};
+
+    void print_stats();
 
 protected:
     int traumatism;

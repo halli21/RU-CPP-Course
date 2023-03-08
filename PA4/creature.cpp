@@ -51,3 +51,16 @@ void Creature::edit_natural(bool natural) {
 void Creature::edit_disquiet(int value) {
     this->disquiet = valid_value(value, min_disquiet_stat, max_disquiet_stat);
 }
+
+
+
+void Creature::print_stats(){
+    Being::print_stats();
+    if (this->natural == true){
+        cout << " - Natural " << endl;
+    }
+    else {
+        cout << " - Unnatural " << endl;
+    }
+    cout << " - Disquiet: " << this->disquiet << endl;
+}

@@ -22,6 +22,11 @@ public:
         this->name = name;
     }
 
+    void print_stats() {
+        cout << this->name << endl;
+        type.print_stats();
+    }
+
     T type;
     
 

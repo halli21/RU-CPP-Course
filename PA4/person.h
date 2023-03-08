@@ -28,7 +28,6 @@ public:
     void print_stats();
 
 
-
 protected:
     string gender;
     int fear;
@@ -38,5 +37,4 @@ protected:
     
     int valid_value(int value, int min, int max);
 
-    
 };
