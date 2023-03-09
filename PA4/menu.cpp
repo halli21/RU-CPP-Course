@@ -109,6 +109,8 @@ string Menu::get_being_info(string line) {
 
 
     cout << "being " << line << endl;
+
+    return line;
 }
 
 
