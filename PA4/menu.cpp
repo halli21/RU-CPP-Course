@@ -102,6 +102,53 @@ void Menu::create_new_character(){
             break;
         }
     }
+    //enum Type {new_char = 1, existing_char, back};
+
+    string line;
+    string add;
+    string type;
+    string life[2];
+    string strength[2];
+    string intel[2];
+
+    cout << "\nWhat type of creature is it? ";
+    cin >> type;
+    line = type;
+    
+    cout << "What is the name of the role/species? ";
+    cin >> add;
+    line = line + ";" + add;
+
+    cout << "What is the min life? ";
+    cin >> add;
+    life[0] = add;
+    cout << "What is the max life? ";
+    cin >> add;
+    life[1] = add;
+    line = line + ";" + "[" + life[0] + "," + life[1] + "]";
+
+    cout << "What is the min strength? ";
+    cin >> add;
+    strength[0] = add;
+    cout << "What is the max strength? ";
+    cin >> add;
+    strength[1] = add;
+    line = line + ";" + "[" + strength[0] + "," + strength[1] + "]";
+
+    cout << "What is the min intelligence? ";
+    cin >> add;
+    intel[0] = add;
+    cout << "What is the max intelligence? ";
+    cin >> add;
+    intel[1] = add;
+    line = line + ";" + "[" + intel[0] + "," + intel[1] + "]";
+
+    fstream rolesFile;
+    rolesFile.open("roles.txt", ios::app);
+    rolesFile << line + "\n";
+    rolesFile.close();
+
+    cout << line << endl;
 
 }
 
