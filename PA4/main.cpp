@@ -8,7 +8,7 @@
 
 #include "menu.h"
 
-enum Choice {invalid, create, edit, view, quit};
+enum Choice {invalid, create, edit, del, view, quit};
 
 
 int main() {
@@ -29,8 +29,12 @@ int main() {
             my_menu.edit_menu();
             break;
 
+        case del:
+            my_menu.delete_menu();
+            break;
+
         case view:
-            cout << "view" << endl;
+            my_menu.view_menu();
             break;
 
         case quit:

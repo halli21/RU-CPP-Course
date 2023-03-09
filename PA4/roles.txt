@@ -3,6 +3,6 @@ Person;Reporter;5-7;2-6;6-8;male;0-10
 Person;Professor;4-6;1-5;8-10;male;0-10
 Creature;Ghoul;4;4;2;false;6
 Creature;Wolf;4;6;5;true;2
-Eldritch Horror;Chthonian;8;7;2;false;10;1
-Eldritch Horror;Shoggoth;8;9;6;false;10;2
+EldritchHorror;Chthonian;8;7;2;false;10;1
+EldritchHorror;Shoggoth;8;9;6;false;10;2
 EldritchHorror;Halli;0-10;3;0-3;false;9-10;3
