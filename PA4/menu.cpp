@@ -992,13 +992,15 @@ void Menu::view_roles(){
 
 
 void Menu::view_characters(){
-
+    //print all characters to file or console
 }
 
 
 void Menu::view_single(){
-
+    //Print all role names and types
+    //make user choose one role to see more about (print all info about that role)
 }
+
 
 void Menu::view_menu(){
     int option_len = 4;
