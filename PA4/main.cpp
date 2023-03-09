@@ -34,7 +34,7 @@ int main() {
             break;
 
         case view:
-            cout << "view" << endl;
+            my_menu.view_menu();
             break;
 
         case quit:

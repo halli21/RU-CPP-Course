@@ -166,7 +166,8 @@ Menu::Menu(){
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";
     new_char_options = "\n1) Person\n2) Creature\n3) Investigator\n4) Eldritch Horror\n5) Go back\n";
     edit_options = "\n1) Edit role\n2) Edit character\n3) Go Back\n";
-    delete_options = "\n1) Delete a role\n2) Go Back";
+    delete_options = "\n1) Delete a role\n2) Go Back\n";
+    view_options = "\n1) View all roles/species\n2) View all characters\n3) View one role/species\n4) Go Back\n";
 }
 
 bool Menu::valid_option(string option, int option_len){
@@ -859,6 +860,177 @@ void Menu::delete_menu(){
         switch(my_choice){
         case role:
             delete_role();
+            go_back = true;
+            break;
+
+        case back:
+            go_back = true;
+            break;
+        }
+    }
+}
+
+
+//------------------------------ View ----------------------------------
+
+void Menu::all_roles() {
+    cout << "\n\n----Here are all the roles----" << endl;
+
+    for (int i = 0; i < roles.size(); i++){
+     
+        cout << "\n" << roles[i][1] << endl;
+        cout << " - " << roles[i][0] << endl;
+        cout << " - Life: " << roles[i][2] << endl;
+        cout << " - Strength: " << roles[i][3] << endl;
+        cout << " - Intelligence: " << roles[i][4] << endl;
+
+        if (roles[i][0] == "Person" || roles[i][0] == "Investigator"){
+            cout << " - " << roles[i][5] << endl;
+            cout << " - Fear: " << roles[i][6] << endl;
+        }
+        else if (roles[i][0] == "Creature" || roles[i][0] == "Eldritch Horror"){
+            if (roles[i][5] == "true"){
+                cout << " - Natural " << endl;
+            }
+            else {
+                cout << " - Unnatural " << endl;
+            }
+            cout << " - Disquiet: " << roles[i][6] << endl;
+        }
+
+        if (roles[i][0] == "Investigator"){
+            cout << " - Terror: " << roles[i][7] << endl;
+        }
+        else if (roles[i][0] == "Eldritch Horror"){
+            cout << " - Traumatism: " << roles[i][7] << endl;
+        }
+    }
+}
+
+
+void Menu::roles_to_file(string filename) {
+    string data;
+
+    data = "----Here are the roles available----\n";
+
+    for (int i = 0; i < roles.size(); i++){
+        string line;
+
+        line += "\n" + roles[i][1] + "\n";
+        line += " - " + roles[i][0] + "\n";
+        line += " - Life: " + roles[i][2] + "\n";
+        line += " - Strength: " + roles[i][3] + "\n";
+        line += " - Intelligence: " + roles[i][4] + "\n";
+
+        if (roles[i][0] == "Person" || roles[i][0] == "Investigator"){
+            line += " - " + roles[i][5] + "\n";
+            line += " - Fear: " + roles[i][6] + "\n";
+        }
+        else if (roles[i][0] == "Creature" || roles[i][0] == "Eldritch Horror"){
+            if (roles[i][5] == "true"){
+                line += " - Natural \n";
+            }
+            else {
+                line += " - Unnatural \n";
+            }
+            line += " - Disquiet: " + roles[i][6] + "\n";
+        }
+
+        if (roles[i][0] == "Investigator"){
+            line += " - Terror: " + roles[i][7] + "\n";
+        }
+        else if (roles[i][0] == "Eldritch Horror"){
+            line += " - Traumatism: " + roles[i][7] + "\n";
+        }
+
+        data += line;
+    }
+
+    fstream file;
+    file.open(filename, ios::out | ios::trunc);
+    file << data;
+    file.close();
+
+}
+
+
+void Menu::view_roles(){
+    int option_len = 3;
+    enum Choice {console = 1, file, back};
+    
+    bool go_back = false;
+    while(go_back == false) {
+        cout << "\n1) Print to console\n2) Print to file\n3) Go Back\n" << endl;
+        string option;
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, option_len) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        Choice my_choice = Choice(stoi(option));
+        
+        switch(my_choice){
+        case console:
+            all_roles();
+            go_back = true;
+            break;
+        
+        case file:
+            roles_to_file("test.txt");
+            go_back = true;
+            break;
+
+        case back:
+            go_back = true;
+            break;
+        }
+    }
+}
+
+
+void Menu::view_characters(){
+
+}
+
+
+void Menu::view_single(){
+
+}
+
+void Menu::view_menu(){
+    int option_len = 4;
+    enum Choice {role = 1, character, single, back};
+    
+    bool go_back = false;
+    while(go_back == false) {
+        cout << view_options << endl;
+        string option;
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, option_len) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        Choice my_choice = Choice(stoi(option));
+        
+        switch(my_choice){
+        case role:
+            view_roles();
+            go_back = true;
+            break;
+        
+        case character:
+            view_characters();
+            go_back = true;
+            break;
+
+        case single:
+            view_single();
             go_back = true;
             break;
 
