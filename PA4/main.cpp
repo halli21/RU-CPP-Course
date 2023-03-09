@@ -26,7 +26,7 @@ int main() {
             break;
 
         case edit:
-            cout << "edit" << endl;
+            my_menu.edit_menu();
             break;
 
         case view:
