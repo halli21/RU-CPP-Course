@@ -14,6 +14,12 @@ public:
     Menu();
     int get_action();
     void create_character_menu();
+    string get_being_info(string line);
+    string get_person_info(string line);
+    string get_creature_info(string line);
+    string get_investigator_info(string line);
+    string get_eldritch_info(string line);
+    void save_to_file(string filename, string line);
     
 
 private:
