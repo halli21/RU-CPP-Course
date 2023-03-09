@@ -31,9 +31,12 @@ private:
 
     void get_roles();
     void get_characters();
+    void available_roles();
     bool valid_option(string option, int option_len);
     void create_new_character();
     void create_existing_character();
+    void edit_role();
+    void edit_character();
     int random_int(int min, int max);
     pair<int, int> getTwoIntsFromString(const string& str);
     string create_random_entry(vector<string> character);
@@ -43,6 +46,7 @@ private:
     string get_investigator_info(string line);
     string get_eldritch_info(string line);
     void save_to_file(string filename, string line);
+    void save_roles();
     int valid_value(int value, int min, int max);
     
 };

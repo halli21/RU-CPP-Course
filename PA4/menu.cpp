@@ -5,6 +5,7 @@
 #include <sstream>
 #include <cctype>
 #include <cstdlib>
+#include <time.h>
 
 #include "menu.h"
 
@@ -44,9 +45,9 @@ void Menu::get_characters(){
         while ( ss.good() ) {
             string substr;
             getline( ss, substr, ';' );
-            temp.push_back( substr );
+            //temp.push_back( substr );
         }
-        characters.push_back(temp);
+        //characters.push_back(temp);
     }
     charsFile.close();
 }
@@ -214,10 +215,10 @@ string Menu::get_investigator_info(string line) {
     cout << "What is the max terror? ";
     cin >> add;
     terror[1] = add;
-    line = line + ";" + to_string(valid_value(stoi(terror[0]), 0, 10));
+    line = line + ";" + to_string(valid_value(stoi(terror[0]), 0, 3));
     if (terror[1] != terror[0]) {
-        if (terror[1] > to_string(valid_value(stoi(terror[0]), 0, 10)))
-            line = line + "-" + to_string(valid_value(stoi(terror[1]), stoi(terror[0]), 10));
+        if (terror[1] > to_string(valid_value(stoi(terror[0]), 0, 3)))
+            line = line + "-" + to_string(valid_value(stoi(terror[1]), stoi(terror[0]), 3));
     }
 
     cout << "investigator " << line << endl;
@@ -234,10 +235,10 @@ string Menu::get_eldritch_info(string line) {
     cout << "What is the max traumatism? ";
     cin >> add;
     traumatism[1] = add;
-    line = line + ";" + to_string(valid_value(stoi(traumatism[0]), 0, 10));
+    line = line + ";" + to_string(valid_value(stoi(traumatism[0]), 0, 3));
     if (traumatism[1] != traumatism[0]) {
-        if (traumatism[1] > to_string(valid_value(stoi(traumatism[0]), 0, 10)))
-            line = line + "-" + to_string(valid_value(stoi(traumatism[1]), stoi(traumatism[0]), 10));
+        if (traumatism[1] > to_string(valid_value(stoi(traumatism[0]), 0, 3)))
+            line = line + "-" + to_string(valid_value(stoi(traumatism[1]), stoi(traumatism[0]), 3));
     }
 
     cout << "eldritch " << line << endl;
@@ -249,6 +250,31 @@ void Menu::save_to_file(string filename, string line) {
     fstream file;
     file.open(filename, ios::app);
     file << line + "\n";
+    file.close();
+}
+
+
+void Menu::save_roles() {
+    string data;
+
+    for (int i = 0; i < roles.size(); i++) {
+        string line;
+        for (int x = 0; x < roles[i].size(); x++) {
+            if (x == 0) 
+                line = line + roles[i][x];
+            else 
+                line = line + ";" + roles[i][x];
+        }
+        cout << "line " << line << endl;
+        line = line + "\n";
+        data = data + line;
+    }
+
+    cout << "\nData " << data << endl;
+
+    fstream file;
+    file.open("roles.txt", ios::out | ios::trunc);
+    file << data;
     file.close();
 }
 
@@ -392,9 +418,8 @@ string Menu::create_random_entry(vector<string> character){
 }
 
 
-void Menu::create_existing_character(){
-
-    cout << "\n\n----Here are the characters available----" << endl;
+void Menu::available_roles(){
+    cout << "\n\n----Here are the roles available----" << endl;
 
     for (int i = 0; i < roles.size(); i++){
      
@@ -427,7 +452,11 @@ void Menu::create_existing_character(){
     }
 
     cout << "\n" << roles.size() + 1 << ") Go back\n " << endl;
+}
 
+void Menu::create_existing_character(){
+
+    available_roles();
 
     vector<string> character;
     
@@ -488,14 +517,170 @@ void Menu::create_character_menu(){
     }
 }
 
+//------------------------------ Edit ----------------------------------
+
+void Menu::edit_role(){
+    available_roles();
+
+    vector<string> role;
+    string option;
+
+    while(true) {
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, roles.size() + 1) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        if (stoi(option) == roles.size() + 1){
+            return;
+        }
+
+        role = roles[stoi(option) - 1];
+        break;
+    }
+
+    string type = role[0];
+
+    cout << "\n\n----Here are the stats available for editing----" << endl;
+
+    cout << "1) Name\n2) Life\n3) Strength\n4) Intelligence" << endl;
+
+    if (type == "Person" || type == "Investigator") {
+        cout << "5) Gender\n6) Fear" << endl;
+    }
+    else if (type == "Creature" || type == "EldritchHorror") {
+        cout << "5) Natural\n6) Disquiet" << endl;
+    }
+    if (type == "Investigator") {
+        cout << "7) Terror" << endl;
+    }
+    else if (type == "EldritchHorror") {
+        cout << "7) Traumatism" << endl;
+    }
+
+    cout << "\n" << role.size() + 1 << ") Go back\n " << endl;
+    string stat_option;
+
+    while(true) {
+        cout << "Enter option: ";
+        cin >> stat_option;
+
+        if (valid_option(stat_option, role.size() + 1) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        if (stoi(stat_option) == role.size() + 1){
+            return;
+        }
+
+        break;
+    }
+
+    if (stoi(stat_option) == 7) {
+        if (type == "Investigator") {
+            string terror[2];
+
+            cout << "What is the min terror? ";
+            cin >> terror[0];
+            cout << "What is the max terror? ";
+            cin >> terror[1];
+            role[7] = to_string(valid_value(stoi(terror[0]), 0, 3));
+            if (terror[1] != terror[0]) {
+                if (terror[1] > to_string(valid_value(stoi(terror[0]), 0, 3)))
+                    role[7] = role[7] + "-" + to_string(valid_value(stoi(terror[1]), stoi(terror[0]), 3));
+            }
+        }
+        else if (type == "EldritchHorror") {
+            string traumatism[2];
+
+            cout << "What is the min traumatism? ";
+            cin >> traumatism[0];
+            cout << "What is the max traumatism? ";
+            cin >> traumatism[1];
+            role[7] = to_string(valid_value(stoi(traumatism[0]), 0, 3));
+            if (traumatism[1] != traumatism[0]) {
+                if (traumatism[1] > to_string(valid_value(stoi(traumatism[0]), 0, 3)))
+                    role[7] = role[7] + "-" + to_string(valid_value(stoi(traumatism[1]), stoi(traumatism[0]), 3));
+            }
+        }
+    }
+    else if (stoi(stat_option) == 6 || (stoi(stat_option) >= 2 & stoi(stat_option) <= 4)) {
+        if (type == "Person" || type == "Investigator") {
+            string stats[2];
+
+            cout << "What is the min? ";
+            cin >> stats[0];
+            cout << "What is the max? ";
+            cin >> stats[1];
+            role[stoi(stat_option)] = to_string(valid_value(stoi(stats[0]), 0, 10));
+            if (stats[1] != stats[0]) {
+                if (stats[1] > to_string(valid_value(stoi(stats[0]), 0, 10)))
+                    role[stoi(stat_option)] = role[stoi(stat_option)] + "-" + to_string(valid_value(stoi(stats[1]), stoi(stats[0]), 10));
+            }
+        }
+        else if (type == "Creature" || type == "EldritchHorror") {
+            string stats[2];
+
+            cout << "What is the min? ";
+            cin >> stats[0];
+            cout << "What is the max? ";
+            cin >> stats[1];
+            role[stoi(stat_option)] = to_string(valid_value(stoi(stats[0]), 0, 10));
+            if (stats[1] != stats[0]) {
+                if (stats[1] > to_string(valid_value(stoi(stats[0]), 0, 10)))
+                    role[stoi(stat_option)] = role[stoi(stat_option)] + "-" + to_string(valid_value(stoi(stats[1]), stoi(stats[0]), 10));
+            }
+        }
+    }
+    else {
+        string stats;
+
+        cout << "What is the new value? ";
+        cin >> stats;
+        if (type == "Creature" || type == "EldritchHorror") {
+            if (stat_option == "5") {
+                while (true) {
+                    if (stats == "true" || stats == "false") 
+                        break;
+                    else {
+                        cout << "Invalid input! Has to be 'true' or 'false'" << endl;
+                        cout << "What is the new value ('true' or 'false')?";
+                        cin >> stats;
+                    }
+                }
+            }
+        }
+        role[stoi(stat_option)] = stats;
+    }
+
+    roles[stoi(option) - 1] = role;
+
+    save_roles();
+
+    /*available_roles();
+
+    for (int i = 0; i < role.size(); i++) {
+        cout << role[i] << endl;
+    }*/
+}
+
+
+void Menu::edit_character(){
+    cout << "Edit character\n";
+}
+
 
 void Menu::edit_menu(){
     int option_len = 3;
-    enum Choice {new_char = 1, existing_char, back};
+    enum Choice {role = 1, character, back};
     
     bool go_back = false;
     while(go_back == false) {
-        cout << create_options << endl;
+        cout << edit_options << endl;
         string option;
         cout << "Enter option: ";
         cin >> option;
@@ -508,12 +693,12 @@ void Menu::edit_menu(){
         Choice my_choice = Choice(stoi(option));
         
         switch(my_choice){
-        case new_char:
-            create_new_character();
+        case role:
+            edit_role();
             break;
 
-        case existing_char:
-            create_existing_character();
+        case character:
+            edit_character();
             break;
 
         case back:
