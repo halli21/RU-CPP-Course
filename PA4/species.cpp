@@ -1,11 +1,13 @@
 #include <iostream>
 
+#include "character.cpp"
+
 using namespace std;
 
 
 
 template <class T>
-class Species{
+class Species : public Character{
 public:
     Species(){this->name = "unknown";};
     Species(string name){this->name = name;};

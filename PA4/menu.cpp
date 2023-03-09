@@ -33,20 +33,122 @@ void Menu::get_roles(){
     rolesFile.close();
 }
 
+template<class T>
+void Menu::add_being_attributes(T& character, vector<string> attributes){
+    character->type.edit_life(stoi(attributes[3]));
+    character->type.edit_strength(stoi(attributes[4]));
+    character->type.edit_intelligence(stoi(attributes[5]));
+}
+
+template<class T>
+void Menu::add_person_attributes(T& character, vector<string> attributes){
+    character->type.edit_gender(attributes[6]);
+    character->type.edit_fear(stoi(attributes[7]));
+}
+
+template<class T>
+void Menu::add_creature_attributes(T& character, vector<string> attributes){
+    if (attributes[6] == "true") {
+        character->type.edit_natural(true);
+    }
+    else {
+        character->type.edit_natural(false);
+    }
+    character->type.edit_disquiet(stoi(attributes[7]));
+}
+
+template<class T>
+void Menu::add_investigator_attributes(T& character, vector<string> attributes){
+    character->type.edit_terror(stoi(attributes[8]));
+  
+}
+
+template<class T>
+void Menu::add_eldritch_attributes(T& character, vector<string> attributes){
+    character->type.edit_traumatism(stoi(attributes[8]));
+}
+
+
 void Menu::get_characters(){
     fstream charsFile;
     charsFile.open("characters.txt",ios::in);
-    string tp2;
-    while(getline(charsFile, tp2)){ 
-        //vector<string> temp;
+    string tp;
+    while(getline(charsFile, tp)){ 
+        vector<string> attributes;
         //cout << "tp2 " << tp2 << endl;
-        stringstream ss(tp2);
+        stringstream ss(tp);
         while ( ss.good() ) {
             string substr;
             getline( ss, substr, ';' );
-            temp.push_back( substr );
+            attributes.push_back( substr );
         }
-        characters.push_back(temp);
+
+        string type = attributes[0];
+
+        if (type == "Person"){
+            Role<Person> *character = new Role<Person>;
+            character->change_name(attributes[2]);
+            add_being_attributes(character, attributes);
+            add_person_attributes(character, attributes);   
+            characters.push_back(character);        
+        }
+        else if (type == "Creature"){
+            Species<Creature> *character = new Species<Creature>;
+
+            size_t lastSpaceIndex = attributes[2].rfind(' ');
+
+            if (lastSpaceIndex != string::npos){
+                string name = attributes[2].substr(0, lastSpaceIndex);
+                string status = attributes[2].substr(lastSpaceIndex + 1);
+
+                if (creatures_map.count(name) == 0){
+                    creatures_map[name] = 0;
+                }
+                if (status == "boss") {
+                    creatures_map[attributes[2]] = 1;
+                }
+                creatures_map[name] += 1;
+            }
+        
+            
+            character->change_name(attributes[2]);
+            add_being_attributes(character, attributes);
+            add_creature_attributes(character, attributes);
+            characters.push_back(character);
+        }
+        else if (type == "Investigator"){
+            Role<Investigator> *character = new Role<Investigator>;
+            character->change_name(attributes[2]);
+            add_being_attributes(character, attributes);
+            add_person_attributes(character, attributes);
+            add_investigator_attributes(character, attributes);
+            characters.push_back(character);
+       
+        }
+        else if (type == "Eldritch Horror"){
+            Species<EldritchHorror> *character = new Species<EldritchHorror>;
+
+            size_t lastSpaceIndex = attributes[2].rfind(' ');
+
+            if (lastSpaceIndex != string::npos){
+                string name = attributes[2].substr(0, lastSpaceIndex);
+                string status = attributes[2].substr(lastSpaceIndex + 1);
+
+                if (eldritch_map.count(name) == 0){
+                    eldritch_map[name] = 0;
+                }
+                if (status == "boss") {
+                    eldritch_map[attributes[2]] = 1;
+                }
+                eldritch_map[name] += 1;
+            }
+            character->change_name(attributes[2]);
+            add_being_attributes(character, attributes);
+            add_creature_attributes(character, attributes);
+            add_eldritch_attributes(character, attributes);
+            characters.push_back(character);
+        }
+
     }
     charsFile.close();
 }
@@ -56,8 +158,8 @@ Menu::Menu(){
     get_roles();
     get_characters();
 
-    map<string, int> creatures_map {};
-    map<string, int> eldritch_map {};
+    //map<string, int> creatures_map {};
+    //map<string, int> eldritch_map {};
 
     menu_options = "\n1) Create\n2) Edit\n3) View\n4) Quit\n";
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";

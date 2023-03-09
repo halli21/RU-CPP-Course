@@ -1,9 +1,12 @@
 #include <vector>
 #include <map>
+#include <list>
 
+#include "investigator.h"
 #include "eldritchHorror.h"
 #include "role.cpp"
 #include "species.cpp"
+#include "character.cpp"
 
 
 using namespace std;
@@ -27,7 +30,8 @@ private:
     map<string, int> creatures_map;
     map<string, int> eldritch_map;
     vector<vector<string>> roles;
-    vector<void*> characters;
+    list<Character*> characters;
+
 
     void get_roles();
     void get_characters();
@@ -44,5 +48,20 @@ private:
     string get_eldritch_info(string line);
     void save_to_file(string filename, string line);
     int valid_value(int value, int min, int max);
+
+    template<class T>
+    void add_being_attributes(T& character, vector<string> attributes);
+
+    template<class T>
+    void add_person_attributes(T& character, vector<string> attributes);
+
+    template<class T>
+    void add_creature_attributes(T& character, vector<string> attributes);
+
+    template<class T>
+    void add_investigator_attributes(T& character, vector<string> attributes);
+
+    template<class T>
+    void add_eldritch_attributes(T& character, vector<string> attributes);
     
 };

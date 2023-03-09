@@ -1,12 +1,14 @@
 #include <iostream>
 
+#include "character.cpp"
+
 using namespace std;
 
 
 
 
 template <class T>
-class Role{
+class Role : public Character{
 public:
     Role(){this->name = "unknown";};
     Role(string name){this->name = name;};

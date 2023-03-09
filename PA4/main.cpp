@@ -4,7 +4,6 @@
 #include <fstream>
 #include <sstream>
 
-#include "investigator.h"
 
 
 #include "menu.h"

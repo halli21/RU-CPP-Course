@@ -1,4 +1,7 @@
 
+
+
+
 #ifndef MY_BEING_CLASS_su389ru4
 #define MY_BEING_CLASS_su389ru4
 
