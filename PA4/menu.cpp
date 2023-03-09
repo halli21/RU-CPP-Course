@@ -162,10 +162,11 @@ Menu::Menu(){
     //map<string, int> creatures_map {};
     //map<string, int> eldritch_map {};
 
-    menu_options = "\n1) Create\n2) Edit\n3) View\n4) Quit\n";
+    menu_options = "\n1) Create\n2) Edit\n3) Delete\n4) View\n5) Quit\n";
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";
     new_char_options = "\n1) Person\n2) Creature\n3) Investigator\n4) Eldritch Horror\n5) Go back\n";
     edit_options = "\n1) Edit role\n2) Edit character\n3) Go Back\n";
+    delete_options = "\n1) Delete a role\n2) Go Back";
 }
 
 bool Menu::valid_option(string option, int option_len){
@@ -177,7 +178,7 @@ bool Menu::valid_option(string option, int option_len){
 }
 
 int Menu::get_action(){
-    int option_len = 4;
+    int option_len = 5;
     cout << menu_options << endl;
     string option;
     cout << "Enter option: ";
@@ -763,11 +764,6 @@ void Menu::edit_role(){
 
     save_roles();
 
-    /*available_roles();
-
-    for (int i = 0; i < role.size(); i++) {
-        cout << role[i] << endl;
-    }*/
 }
 
 
@@ -801,6 +797,69 @@ void Menu::edit_menu(){
 
         case character:
             edit_character();
+            break;
+
+        case back:
+            go_back = true;
+            break;
+        }
+    }
+}
+
+
+
+//------------------------------ Delete ----------------------------------
+
+void Menu::delete_role(){
+    available_roles();
+
+    vector<string> role;
+    string option;
+
+    while(true) {
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, roles.size() + 1) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        if (stoi(option) == roles.size() + 1){
+            return;
+        }
+
+        roles.erase(roles.begin()+stoi(option));
+        //role = roles[stoi(option) - 1];
+        break;
+    }
+
+    save_roles();
+}
+
+
+void Menu::delete_menu(){
+    int option_len = 2;
+    enum Choice {role = 1, back};
+    
+    bool go_back = false;
+    while(go_back == false) {
+        cout << delete_options << endl;
+        string option;
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, option_len) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        Choice my_choice = Choice(stoi(option));
+        
+        switch(my_choice){
+        case role:
+            delete_role();
+            go_back = true;
             break;
 
         case back:

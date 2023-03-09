@@ -19,6 +19,7 @@ public:
     int get_action();
     void create_character_menu();
     void edit_menu();
+    void delete_menu();
     
     
 
@@ -27,6 +28,7 @@ private:
     string create_options;
     string new_char_options;
     string edit_options;
+    string delete_options;
     map<string, int> creatures_map;
     map<string, int> eldritch_map;
     vector<vector<string>> roles;
@@ -41,6 +43,7 @@ private:
     void create_existing_character();
     void edit_role();
     void edit_character();
+    void delete_role();
     int random_int(int min, int max);
     pair<int, int> getTwoIntsFromString(const string& str);
     string create_random_entry(vector<string> character);
