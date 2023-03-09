@@ -58,7 +58,9 @@
     "ostream": "cpp",
     "string": "cpp",
     "__locale": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "__tree": "cpp",
+    "map": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

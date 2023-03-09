@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
+#include <cstdlib>
 
 #include "menu.h"
 
@@ -32,9 +33,31 @@ void Menu::get_roles(){
     rolesFile.close();
 }
 
+void Menu::get_characters(){
+
+    fstream charsFile;
+    charsFile.open("characters.txt",ios::in);
+    string tp2;
+    while(getline(charsFile, tp2)){ 
+        //vector<string> temp;
+        //cout << "tp2 " << tp2 << endl;
+        stringstream ss(tp2);
+        while ( ss.good() ) {
+            string substr;
+            getline( ss, substr, ';' );
+            temp.push_back( substr );
+        }
+        characters.push_back(temp);
+    }
+    charsFile.close();
+}
+
 
 Menu::Menu(){
     get_roles();
+
+    map<string, int> creatures_map {};
+    map<string, int> eldritch_map {};
 
     menu_options = "\n1) Create\n2) Edit\n3) View\n4) Quit\n";
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";
@@ -270,6 +293,80 @@ void Menu::create_new_character(){
 }
 
 
+int Menu::random_int(int min, int max){
+    srand(time(nullptr));
+
+    int randomInt = rand() % (max - min + 1) + min;
+
+    return randomInt;
+}
+
+pair<int, int> Menu::getTwoIntsFromString(const string& str){
+    size_t dashPos = str.find("-");
+    string firstStr = str.substr(0, dashPos);
+    string secondStr = str.substr(dashPos + 1);
+    int firstInt = stoi(firstStr);
+    int secondInt = stoi(secondStr);
+
+    return make_pair(firstInt, secondInt);
+}
+
+
+string Menu::create_random_entry(vector<string> character){
+    string entry;
+
+    string type = character[0];
+    string name = character[1];
+
+    entry += type + ";" + name;
+
+    pair<int, int> life = getTwoIntsFromString(character[2]);
+    pair<int, int> strength = getTwoIntsFromString(character[3]);
+    pair<int, int> intel = getTwoIntsFromString(character[4]);
+
+    int randomLife = random_int(life.first, life.second);
+    int randomStrength = random_int(strength.first, strength.second);
+    int randomIntel = random_int(intel.first, intel.second);
+
+
+    entry += ";" + to_string(randomLife) + ";" + to_string(randomStrength) + ";" + to_string(randomIntel);
+
+
+    if (type == "Person" || type == "Investigator"){
+        string gender = character[5];
+        pair<int, int> fear = getTwoIntsFromString(character[6]);
+        int randomFear = random_int(fear.first, fear.second);
+
+        entry += ";" + gender + ";" + to_string(randomFear);
+    }
+
+    else if (type == "Creature" || type == "Eldritch Horror"){
+        string natural = character[5];
+        
+        pair<int, int> disquiet = getTwoIntsFromString(character[6]);
+        int randomDisquiet = random_int(disquiet.first, disquiet.second);
+
+        entry += ";" + natural + ";" + to_string(randomDisquiet);
+    }
+
+    if (type == "Investigator"){
+        pair<int, int> terror = getTwoIntsFromString(character[7]);
+        int randomTerror = random_int(terror.first, terror.second);
+
+        entry += ";" + to_string(randomTerror);
+    }
+
+    else if (type == "Eldritch Horror"){
+        pair<int, int> traumatism = getTwoIntsFromString(character[7]);
+        int randomTraumatism = random_int(traumatism.first, traumatism.second);
+
+        entry += ";" + to_string(randomTraumatism);
+    }
+
+    return entry;
+}
+
+
 void Menu::create_existing_character(){
 
     cout << "\n\n----Here are the characters available----" << endl;
@@ -327,9 +424,8 @@ void Menu::create_existing_character(){
         break;
     }
 
-    cout << character[1] << endl;
-
-
+    string entry = create_random_entry(character);
+    save_to_file("characters.txt", entry);
 }
 
 

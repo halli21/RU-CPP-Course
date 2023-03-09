@@ -1,4 +1,5 @@
 #include <vector>
+#include <map>
 
 #include "eldritchHorror.h"
 #include "role.cpp"
@@ -26,10 +27,18 @@ private:
     string menu_options;
     string create_options;
     string new_char_options;
+    map<string, int> creatures_map;
+    map<string, int> eldritch_map;
     vector<vector<string>> roles;
+    vector<void*> characters;
+
+
     void get_roles();
+    void get_characters();
     bool valid_option(string option, int option_len);
     void create_new_character();
     void create_existing_character();
-    
+    int random_int(int min, int max);
+    pair<int, int> getTwoIntsFromString(const string& str);
+    string create_random_entry(vector<string> character);
 };

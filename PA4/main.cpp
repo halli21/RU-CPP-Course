@@ -14,7 +14,6 @@ enum Choice {invalid, create, edit, view, quit};
 
 int main() {
 
-
     Menu my_menu;
     Choice my_choice;
     
