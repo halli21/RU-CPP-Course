@@ -5,6 +5,7 @@ using namespace std;
 #include "being.h"
 
 
+
 class Creature : public Being{
 public:
     Creature();
@@ -27,6 +28,10 @@ public:
 
     void print_stats();
 
+    string get_type(){return "Creature";};
+
+    void edit_creature();
+
 protected:
     bool natural;
     int disquiet;
@@ -35,4 +40,6 @@ protected:
     int max_disquiet_stat;
 
     int valid_value(int value, int min, int max);
+
+    bool valid_option(string option, int option_len);
 };

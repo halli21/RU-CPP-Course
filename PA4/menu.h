@@ -67,5 +67,5 @@ private:
 
     template<class T>
     void add_eldritch_attributes(T& character, vector<string> attributes);
-    
+
 };

@@ -76,7 +76,6 @@ void Menu::get_characters(){
     string tp;
     while(getline(charsFile, tp)){ 
         vector<string> attributes;
-        //cout << "tp2 " << tp2 << endl;
         stringstream ss(tp);
         while ( ss.good() ) {
             string substr;
@@ -158,9 +157,6 @@ void Menu::get_characters(){
 Menu::Menu(){
     get_roles();
     get_characters();
-
-    //map<string, int> creatures_map {};
-    //map<string, int> eldritch_map {};
 
     menu_options = "\n1) Create\n2) Edit\n3) View\n4) Quit\n";
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";
@@ -771,8 +767,66 @@ void Menu::edit_role(){
 }
 
 
+
 void Menu::edit_character(){
-    cout << "Edit character\n";
+
+    cout << "\n\n----Which character would you like to edit?----" << endl;
+
+    int i = 1;
+
+    for (auto character : characters) {
+        cout << "\n" << i << ")" << endl;
+        if (auto person = dynamic_cast<Role<Person>*>(character)) {
+            person->print_stats();
+        }
+        else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
+            creature->print_stats();
+        }
+        else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
+            investigator->print_stats();
+        }
+        else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
+            eldritch->print_stats();
+        }
+        i += 1;
+    }
+
+    cout << "\n" << characters.size() + 1 << ") Go back\n " << endl;
+    string option;
+
+    while(true) {
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, characters.size() + 1) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        if (stoi(option) == characters.size() + 1){
+            return;
+        }
+
+        break;
+    }
+
+    list<Character*>::iterator it = characters.begin();
+    advance(it, stoi(option) - 1);
+
+    Character* character = *it;
+
+    if (auto person = dynamic_cast<Role<Person>*>(character)) {
+        person->type.edit_person();
+    }
+    else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
+        creature->type.edit_creature();
+    }
+    else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
+        investigator->type.edit_investigator();
+    }
+    else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
+        eldritch->type.edit_eldritch();
+    }
 }
 
 

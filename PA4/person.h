@@ -14,7 +14,7 @@ public:
     string get_gender();
     int get_fear_stat();
     
-    void edit_gender(string gender);
+    void edit_gender(string gender_change);
     void edit_fear(int value);
 
     int get_life_stat(){return Being::get_life_stat();};
@@ -27,6 +27,10 @@ public:
 
     void print_stats();
 
+    string get_type(){return "Person";};
+
+    void edit_person();
+
 
 protected:
     string gender;
@@ -36,5 +40,7 @@ protected:
     int max_fear_stat;
     
     int valid_value(int value, int min, int max);
+
+    bool valid_option(string option, int option_len);
 
 };

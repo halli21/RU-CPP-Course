@@ -30,6 +30,10 @@ public:
 
     void print_stats();
 
+    string get_type(){return "Eldritch Horror";};
+
+    void edit_eldritch();
+
 protected:
     int traumatism;
 
@@ -37,4 +41,6 @@ protected:
     int max_traumatism_stat;
 
     int valid_value(int value, int min, int max);
+
+    bool valid_option(string option, int option_len);
 };

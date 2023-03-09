@@ -31,6 +31,10 @@ public:
 
     void print_stats();
 
+    string get_type(){return "Investigator";};
+
+    void edit_investigator();
+
 protected:
     int terror;
 
@@ -39,4 +43,6 @@ protected:
 
 private:
     int valid_value(int value, int min, int max);
+
+    bool valid_option(string option, int option_len);
 };
