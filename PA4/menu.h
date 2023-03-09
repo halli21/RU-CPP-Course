@@ -30,5 +30,6 @@ private:
     void get_roles();
     bool valid_option(string option, int option_len);
     void create_new_character();
+    void create_existing_character();
     
 };

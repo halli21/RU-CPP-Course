@@ -233,7 +233,7 @@ void Menu::create_new_character(){
         line = get_being_info(line);
         
         switch(my_choice){
-        case person:
+        case person: 
             cout << "create person" << endl;
             line = get_person_info(line);
             save_to_file(file, line);
@@ -268,6 +268,69 @@ void Menu::create_new_character(){
 }
 
 
+void Menu::create_existing_character(){
+
+    cout << "\n\n----Here are the characters available----" << endl;
+
+    for (int i = 0; i < roles.size(); i++){
+     
+        cout << "\n" << i + 1 << ") " << roles[i][1] << endl;
+        cout << " - " << roles[i][0] << endl;
+        cout << " - Life: " << roles[i][2] << endl;
+        cout << " - Strength: " << roles[i][3] << endl;
+        cout << " - Intelligence: " << roles[i][4] << endl;
+
+        if (roles[i][0] == "Person" || roles[i][0] == "Investigator"){
+            cout << " - " << roles[i][5] << endl;
+            cout << " - Fear: " << roles[i][6] << endl;
+        }
+        else if (roles[i][0] == "Creature" || roles[i][0] == "Eldritch Horror"){
+            if (roles[i][5] == "true"){
+                cout << " - Natural " << endl;
+            }
+            else {
+                cout << " - Unnatural " << endl;
+            }
+            cout << " - Disquiet: " << roles[i][6] << endl;
+        }
+
+        if (roles[i][0] == "Investigator"){
+            cout << " - Terror: " << roles[i][7] << endl;
+        }
+        else if (roles[i][0] == "Eldritch Horror"){
+            cout << " - Traumatism: " << roles[i][7] << endl;
+        }
+    }
+
+    cout << "\n" << roles.size() + 1 << ") Go back\n " << endl;
+
+
+    vector<string> character;
+    
+    while(true) {
+        string option;
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, roles.size() + 1) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        if (stoi(option) == roles.size() + 1){
+            return;
+        }
+
+        character = roles[stoi(option) - 1];
+        break;
+    }
+
+    cout << character[1] << endl;
+
+
+}
+
+
 void Menu::create_character_menu(){
     int option_len = 3;
     enum Choice {new_char = 1, existing_char, back};
@@ -292,7 +355,7 @@ void Menu::create_character_menu(){
             break;
 
         case existing_char:
-            cout << "create existing" << endl;
+            create_existing_character();
             break;
 
         case back:
