@@ -34,7 +34,6 @@ void Menu::get_roles(){
 }
 
 void Menu::get_characters(){
-
     fstream charsFile;
     charsFile.open("characters.txt",ios::in);
     string tp2;
@@ -55,6 +54,7 @@ void Menu::get_characters(){
 
 Menu::Menu(){
     get_roles();
+    get_characters();
 
     map<string, int> creatures_map {};
     map<string, int> eldritch_map {};
@@ -62,6 +62,7 @@ Menu::Menu(){
     menu_options = "\n1) Create\n2) Edit\n3) View\n4) Quit\n";
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";
     new_char_options = "\n1) Person\n2) Creature\n3) Investigator\n4) Eldritch Horror\n5) Go back\n";
+    edit_options = "\n1) Edit role\n2) Edit character\n3) Go Back\n";
 }
 
 bool Menu::valid_option(string option, int option_len){
@@ -86,6 +87,19 @@ int Menu::get_action(){
 }
 
 
+int Menu::valid_value(int value, int min, int max) {
+    if (value < min) {
+        return min;
+    }
+    else if (value > max) {
+        return max;
+    }
+    else {
+        return value;
+    }
+}
+
+
 string Menu::get_being_info(string line) {
     string add;
     string type;
@@ -103,9 +117,10 @@ string Menu::get_being_info(string line) {
     cout << "What is the max life? ";
     cin >> add;
     life[1] = add;
-    line = line + ";" + life[0];
+    line = line + ";" + to_string(valid_value(stoi(life[0]), 0, 10));
     if (life[1] != life[0]) {
-        line = line + "-" + life[1];
+        if (life[1] > to_string(valid_value(stoi(life[0]), 0, 10)))
+            line = line + "-" + to_string(valid_value(stoi(life[1]), stoi(life[0]), 10));
     }
 
     cout << "What is the min strength? ";
@@ -114,9 +129,10 @@ string Menu::get_being_info(string line) {
     cout << "What is the max strength? ";
     cin >> add;
     strength[1] = add;
-    line = line + ";" + strength[0];
-    if (strength[1] != strength[0]){
-        line = line + "-" + strength[1];
+    line = line + ";" + to_string(valid_value(stoi(strength[0]), 0, 10));
+    if (strength[1] != strength[0]) {
+        if (strength[1] > to_string(valid_value(stoi(strength[0]), 0, 10)))
+            line = line + "-" + to_string(valid_value(stoi(strength[1]), stoi(strength[0]), 10));
     }
 
     cout << "What is the min intelligence? ";
@@ -125,9 +141,10 @@ string Menu::get_being_info(string line) {
     cout << "What is the max intelligence? ";
     cin >> add;
     intel[1] = add;
-    line = line + ";" + intel[0];
-    if (intel[1] != strength[0]) {
-        line = line + "-" + intel[1];
+    line = line + ";" + to_string(valid_value(stoi(intel[0]), 0, 10));
+    if (intel[1] != intel[0]) {
+        if (intel[1] > to_string(valid_value(stoi(intel[0]), 0, 10)))
+            line = line + "-" + to_string(valid_value(stoi(intel[1]), stoi(intel[0]), 10));
     }
 
 
@@ -151,9 +168,10 @@ string Menu::get_person_info(string line) {
     cout << "What is the max fear? ";
     cin >> add;
     fear[1] = add;
-    line = line + ";" + fear[0];
+    line = line + ";" + to_string(valid_value(stoi(fear[0]), 0, 10));
     if (fear[1] != fear[0]) {
-        line = line + "-" + fear[1];
+        if (fear[1] > to_string(valid_value(stoi(fear[0]), 0, 10)))
+            line = line + "-" + to_string(valid_value(stoi(fear[1]), stoi(fear[0]), 10));
     }
 
     cout << "person " << line << endl;
@@ -175,9 +193,10 @@ string Menu::get_creature_info(string line) {
     cout << "What is the max disquiet? ";
     cin >> add;
     disquiet[1] = add;
-    line = line + ";" + disquiet[0];
+    line = line + ";" + to_string(valid_value(stoi(disquiet[0]), 0, 10));
     if (disquiet[1] != disquiet[0]) {
-        line = line + "-" + disquiet[1];
+        if (disquiet[1] > to_string(valid_value(stoi(disquiet[0]), 0, 10)))
+            line = line + "-" + to_string(valid_value(stoi(disquiet[1]), stoi(disquiet[0]), 10));
     }
 
     cout << "creature " << line << endl;
@@ -195,9 +214,10 @@ string Menu::get_investigator_info(string line) {
     cout << "What is the max terror? ";
     cin >> add;
     terror[1] = add;
-    line = line + ";" + terror[0];
+    line = line + ";" + to_string(valid_value(stoi(terror[0]), 0, 10));
     if (terror[1] != terror[0]) {
-        line = line + "-" + terror[1];
+        if (terror[1] > to_string(valid_value(stoi(terror[0]), 0, 10)))
+            line = line + "-" + to_string(valid_value(stoi(terror[1]), stoi(terror[0]), 10));
     }
 
     cout << "investigator " << line << endl;
@@ -214,9 +234,10 @@ string Menu::get_eldritch_info(string line) {
     cout << "What is the max traumatism? ";
     cin >> add;
     traumatism[1] = add;
-    line = line + ";" + traumatism[0];
+    line = line + ";" + to_string(valid_value(stoi(traumatism[0]), 0, 10));
     if (traumatism[1] != traumatism[0]) {
-        line = line + "-" + traumatism[1];
+        if (traumatism[1] > to_string(valid_value(stoi(traumatism[0]), 0, 10)))
+            line = line + "-" + to_string(valid_value(stoi(traumatism[1]), stoi(traumatism[0]), 10));
     }
 
     cout << "eldritch " << line << endl;
@@ -234,8 +255,8 @@ void Menu::save_to_file(string filename, string line) {
 
 void Menu::create_new_character(){
     int option_len = 5;
-    enum Choice {person = 1, creature, investigator, eldritchHorror, back};
-    const char* convert_enum[] = {stringify( person ),stringify( creature ),stringify( investigator ),stringify( eldritchHorror )};
+    enum Choice {Person = 1, Creature, Investigator, EldritchHorror, Back};
+    const char* convert_enum[] = {stringify( Person ),stringify( Creature ),stringify( Investigator ),stringify( EldritchHorror )};
     string line;
     string file = "roles.txt";
 
@@ -258,31 +279,35 @@ void Menu::create_new_character(){
         line = get_being_info(line);
         
         switch(my_choice){
-        case person: 
+        case Person: 
             cout << "create person" << endl;
             line = get_person_info(line);
             save_to_file(file, line);
+            go_back = true;
             break;
 
-        case creature:
+        case Creature:
             cout << "create creature" << endl;
             line = get_creature_info(line);
             save_to_file(file, line);
+            go_back = true;
             break;
 
-        case investigator:
+        case Investigator:
             cout << "create investigator" << endl;
             line = get_investigator_info(get_person_info(line));
             save_to_file(file, line);
+            go_back = true;
             break;
 
-        case eldritchHorror:
+        case EldritchHorror:
             cout << "create eldritchHorror" << endl;
             line = get_eldritch_info(get_creature_info(line));
             save_to_file(file, line);
+            go_back = true;
             break;
 
-        case back:
+        case Back:
             go_back = true;
             break;
         }
@@ -430,6 +455,41 @@ void Menu::create_existing_character(){
 
 
 void Menu::create_character_menu(){
+    int option_len = 3;
+    enum Choice {new_char = 1, existing_char, back};
+    
+    bool go_back = false;
+    while(go_back == false) {
+        cout << create_options << endl;
+        string option;
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, option_len) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        Choice my_choice = Choice(stoi(option));
+        
+        switch(my_choice){
+        case new_char:
+            create_new_character();
+            break;
+
+        case existing_char:
+            create_existing_character();
+            break;
+
+        case back:
+            go_back = true;
+            break;
+        }
+    }
+}
+
+
+void Menu::edit_menu(){
     int option_len = 3;
     enum Choice {new_char = 1, existing_char, back};
     
