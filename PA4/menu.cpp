@@ -1258,7 +1258,7 @@ void Menu::chars_to_file(string filename) {
 
         }
 
-        data += line + "\n";
+        data += line;
     }
 
     fstream file;
@@ -1334,26 +1334,20 @@ void Menu::view_characters(){
         
         switch(my_choice){
         case console:
-            switch(inv_c){
-                case all:
-                    all_characters();
-                
-                case inv:
-                    all_investigators();
-            }
+            if (inv_option == "1")
+                all_characters();
+            else if (inv_option == "2")
+                all_investigators();
             go_back = true;
             break;
         
         case file:
             cout << "\nWhat should be the name of the file? ";
             cin >> filename;
-            switch(inv_c){
-                case all:
-                    chars_to_file(filename);
-                
-                case inv:
-                    invs_to_file(filename);
-            }
+            if (inv_option == "1")
+                chars_to_file(filename);
+            else if (inv_option == "2")
+                invs_to_file(filename);
             go_back = true;
             break;
 
