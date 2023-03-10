@@ -84,9 +84,11 @@ void Menu::get_characters(){
         }
 
         string type = attributes[0];
+        
 
         if (type == "Person"){
             Role<Person> *character = new Role<Person>;
+            character->change_role_name(attributes[1]);
             character->change_name(attributes[2]);
             add_being_attributes(character, attributes);
             add_person_attributes(character, attributes);   
@@ -109,8 +111,8 @@ void Menu::get_characters(){
                 }
                 creatures_map[name] += 1;
             }
-        
-            
+
+            character->change_role_name(attributes[1]);
             character->change_name(attributes[2]);
             add_being_attributes(character, attributes);
             add_creature_attributes(character, attributes);
@@ -118,6 +120,7 @@ void Menu::get_characters(){
         }
         else if (type == "Investigator"){
             Role<Investigator> *character = new Role<Investigator>;
+            character->change_role_name(attributes[1]);
             character->change_name(attributes[2]);
             add_being_attributes(character, attributes);
             add_person_attributes(character, attributes);
@@ -142,6 +145,7 @@ void Menu::get_characters(){
                 }
                 eldritch_map[name] += 1;
             }
+            character->change_role_name(attributes[1]);
             character->change_name(attributes[2]);
             add_being_attributes(character, attributes);
             add_creature_attributes(character, attributes);
@@ -377,6 +381,66 @@ void Menu::save_roles() {
 
     fstream file;
     file.open("roles.txt", ios::out | ios::trunc);
+    file << data;
+    file.close();
+}
+
+void Menu::save_characters() {
+    string data;
+
+    for (auto character : characters) {
+        string line;
+        if (auto person = dynamic_cast<Role<Person>*>(character)) {
+            line += person->type.get_type() + ";";
+            line += person->get_role_name() + ";";
+            line += person->get_name() + ";";
+            line += to_string(person->type.get_life_stat()) + ";";
+            line += to_string(person->type.get_strength_stat()) + ";";
+            line += to_string(person->type.get_intelligence_stat()) + ";";
+            line += person->type.get_gender() + ";";
+            line += to_string(person->type.get_fear_stat());
+        }
+        else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
+            line += creature->type.get_type() + ";";
+            line += creature->get_role_name() + ";";
+            line += creature->get_name() + ";";
+            line += to_string(creature->type.get_life_stat()) + ";";
+            line += to_string(creature->type.get_strength_stat()) + ";";
+            line += to_string(creature->type.get_intelligence_stat()) + ";";
+            line += creature->type.get_natural() + ";";
+            line += to_string(creature->type.get_disquiet_stat());
+        }
+        else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
+            line += investigator->type.get_type() + ";";
+            line += investigator->get_role_name() + ";";
+            line += investigator->get_name() + ";";
+            line += to_string(investigator->type.get_life_stat()) + ";";
+            line += to_string(investigator->type.get_strength_stat()) + ";";
+            line += to_string(investigator->type.get_intelligence_stat()) + ";";
+            line += investigator->type.get_gender() + ";";
+            line += to_string(investigator->type.get_fear_stat()) + ";";
+            line += to_string(investigator->type.get_terror_stat());
+        }
+        else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
+            line += eldritch->type.get_type() + ";";
+            line += eldritch->get_role_name() + ";";
+            line += eldritch->get_name() + ";";
+            line += to_string(eldritch->type.get_life_stat()) + ";";
+
+            line += to_string(eldritch->type.get_strength_stat()) + ";";
+            line += to_string(eldritch->type.get_intelligence_stat()) + ";";
+            line += eldritch->type.get_natural() + ";";
+            line += to_string(eldritch->type.get_disquiet_stat()) + ";";
+            line += to_string(eldritch->type.get_traumatism_stat());
+
+        }
+
+        cout << line << endl;
+        data += line + "\n";
+    }
+
+    fstream file;
+    file.open("characters.txt", ios::out | ios::trunc);
     file << data;
     file.close();
 }
@@ -869,6 +933,8 @@ void Menu::edit_character(){
             eldritch->type.edit_eldritch();
         }
     }
+
+    save_characters();
 }
 
 

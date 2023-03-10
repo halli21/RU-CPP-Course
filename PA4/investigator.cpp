@@ -87,7 +87,7 @@ void Investigator::edit_investigator(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_life(value_checked);
-            break;
+            return;
 
         case strength:
             cout << "Enter value change: ";
@@ -100,7 +100,7 @@ void Investigator::edit_investigator(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_strength(value_checked);
-            break;
+            return;
 
         case intelligence:
             cout << "Enter value change: ";
@@ -113,13 +113,13 @@ void Investigator::edit_investigator(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_intelligence(value_checked);
-            break;
+            return;
 
         case gender:
             cout << "Enter value change: ";
             cin >> value;
             this->edit_gender(value);
-            break;
+            return;
         
         case fear:
             cout << "Enter value change: ";
@@ -132,7 +132,7 @@ void Investigator::edit_investigator(){
             }
             value_checked = this->valid_value(num, min_fear_stat, max_fear_stat);
             this->edit_fear(value_checked);
-            break;
+            return;
 
         case terror:
             cout << "Enter value change: ";
@@ -145,7 +145,7 @@ void Investigator::edit_investigator(){
             }
             value_checked = this->valid_value(num, min_terror_stat, max_terror_stat);
             this->edit_terror(value_checked);
-            break;
+            return;
 
         case quit:
             return;

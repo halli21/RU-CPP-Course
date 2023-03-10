@@ -37,9 +37,13 @@ void Creature::print_data() {
 }
 
 
-bool Creature::get_natural() {
-    return this->natural;
-
+string Creature::get_natural() {
+    if (this->natural == true) {
+        return "true";
+    }
+    else {
+        return "false";
+    }
 }
 int Creature::get_disquiet_stat() {
     return this->disquiet;
@@ -50,7 +54,7 @@ void Creature::edit_natural(bool natural) {
 
 }
 void Creature::edit_disquiet(int value) {
-    this->disquiet = valid_value(value, min_disquiet_stat, max_disquiet_stat);
+    this->disquiet = valid_value(value, this->min_disquiet_stat, this->max_disquiet_stat);
 }
 
 
@@ -116,7 +120,7 @@ void Creature::edit_creature(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_life(value_checked);
-            break;
+            return;
 
         case strength:
             cout << "Enter value change: ";
@@ -129,7 +133,7 @@ void Creature::edit_creature(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_strength(value_checked);
-            break;
+            return;
 
         case intelligence:
             cout << "Enter value change: ";
@@ -142,7 +146,7 @@ void Creature::edit_creature(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_intelligence(value_checked);
-            break;
+            return;
 
         case natural:
             cout << "Only values 'Natural' or 'Unnatural'" << endl;
@@ -157,7 +161,7 @@ void Creature::edit_creature(){
             else {
                 cout << "\nInvalid option!\n" << endl;
             }
-            break;
+            return;
             
 
         case disquiet:
@@ -171,7 +175,7 @@ void Creature::edit_creature(){
             }
             value_checked = this->valid_value(num, min_disquiet_stat, max_disquiet_stat);
             this->edit_disquiet(value_checked);
-            break;
+            return;
 
         case quit:
             return;

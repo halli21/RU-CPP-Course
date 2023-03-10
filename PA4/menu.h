@@ -21,6 +21,7 @@ public:
     void edit_menu();
     void delete_menu();
     void view_menu();
+
     
     
 
@@ -50,6 +51,8 @@ private:
     void view_roles();
     void view_characters();
     void view_single();
+    void save_roles();
+    void save_characters();
     int random_int(int min, int max);
     pair<int, int> getTwoIntsFromString(const string& str);
     string create_random_entry(vector<string> character);
@@ -59,7 +62,6 @@ private:
     string get_investigator_info(string line);
     string get_eldritch_info(string line);
     void save_to_file(string filename, string line);
-    void save_roles();
     void roles_to_file(string filename);
     int valid_value(int value, int min, int max);
 

@@ -103,7 +103,7 @@ void EldritchHorror::edit_eldritch(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_life(value_checked);
-            break;
+            return;
 
         case strength:
             cout << "Enter value change: ";
@@ -116,7 +116,7 @@ void EldritchHorror::edit_eldritch(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_strength(value_checked);
-            break;
+            return;
 
         case intelligence:
             cout << "Enter value change: ";
@@ -129,7 +129,7 @@ void EldritchHorror::edit_eldritch(){
             }
             value_checked = this->valid_value(num, min_stat, max_stat);
             this->edit_intelligence(value_checked);
-            break;
+            return;
 
         case natural:
             cout << "Only values 'Natural' or 'Unnatural'" << endl;
@@ -144,7 +144,7 @@ void EldritchHorror::edit_eldritch(){
             else {
                 cout << "\nInvalid option!\n" << endl;
             }
-            break;
+            return;
             
 
         case disquiet:
@@ -158,7 +158,7 @@ void EldritchHorror::edit_eldritch(){
             }
             value_checked = this->valid_value(num, min_disquiet_stat, max_disquiet_stat);
             this->edit_disquiet(value_checked);
-            break;
+            return;
 
         case traumatism:
             cout << "Enter value change: ";
@@ -171,7 +171,7 @@ void EldritchHorror::edit_eldritch(){
             }
             value_checked = this->valid_value(num, min_traumatism_stat, max_traumatism_stat);
             this->edit_traumatism(value_checked);
-            break;
+            return;
 
         case quit:
             return;

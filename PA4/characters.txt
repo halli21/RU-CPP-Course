@@ -1,6 +1,6 @@
-Eldritch Horror;Ghoul;Ghoul 1;4;4;2;true;6;7
+Eldritch Horror;Ghoul;Ghoul 1;4;4;2;true;6;3
 Creature;Ghoul;Ghoul 2;4;4;2;false;6
 Creature;Ghoul;Ghoul boss;6;6;4;false;6
 Creature;Wolf;Wolf 1;4;6;5;true;2
 Creature;Wolf;Wolf 2;4;6;5;true;2
-Creature;Wolf;Wolf 3;4;6;5;true;2
+Person;Wolf;Hallil;10;6;5;true;10

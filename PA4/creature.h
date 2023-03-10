@@ -12,7 +12,7 @@ public:
     Creature(bool natural, int disquiet);
     void print_data();
 
-    bool get_natural();
+    string get_natural();
     int get_disquiet_stat();
     
     void edit_natural(bool natural);
