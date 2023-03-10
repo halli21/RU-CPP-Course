@@ -8,7 +8,7 @@
 
 #include "menu.h"
 
-enum Choice {invalid, create, edit, del, view, quit};
+enum Choice {invalid, create, edit, del, view, roster, quit};
 
 
 int main() {
@@ -35,6 +35,10 @@ int main() {
 
         case view:
             my_menu.view_menu();
+            break;
+
+        case roster:
+            my_menu.switch_roster();
             break;
 
         case quit:

@@ -1,59 +1,62 @@
-----Here are the roles available----
+----Here are all the characters----
 
-Nurse
- - Person
- - Life: 5-7
- - Strength: 3-7
- - Intelligence: 7-9
- - female
- - Fear: 0-10
+Ghoul 1
+ - Ghoul
+ - Eldritch Horror
+ - Life: 4
+ - Strength: 4
+ - Intelligence: 2
+ - true
+ - Disquiet: 6
+ - Traumatism: 3
 
-Reporter
- - Person
- - Life: 5-7
- - Strength: 2-6
- - Intelligence: 6-8
- - male
- - Fear: 0-10
 
-Professor
- - Person
- - Life: 4-6
- - Strength: 1-5
- - Intelligence: 8-10
- - male
- - Fear: 0-10
-
-Ghoul
+Ghoul 2
+ - Ghoul
  - Creature
  - Life: 4
  - Strength: 4
  - Intelligence: 2
- - Unnatural 
+ - false
  - Disquiet: 6
 
-Wolf
+
+Ghoul boss
+ - Ghoul
+ - Creature
+ - Life: 6
+ - Strength: 6
+ - Intelligence: 4
+ - false
+ - Disquiet: 6
+
+
+Wolf 1
+ - Wolf
  - Creature
  - Life: 4
  - Strength: 6
  - Intelligence: 5
- - Natural 
+ - true
  - Disquiet: 2
 
-Chthonian
- - EldritchHorror
- - Life: 8
- - Strength: 7
- - Intelligence: 2
 
-Shoggoth
- - EldritchHorror
- - Life: 8
- - Strength: 9
- - Intelligence: 6
+Wolf 2
+ - Wolf
+ - Creature
+ - Life: 4
+ - Strength: 6
+ - Intelligence: 5
+ - true
+ - Disquiet: 2
 
-Halli
- - EldritchHorror
- - Life: 0-10
- - Strength: 3
- - Intelligence: 0-3
+
+Hallil
+ - Wolf
+ - Person
+ - Life: 10
+ - Strength: 6
+ - Intelligence: 5
+ - Gender: true
+ - Fear: 10
+

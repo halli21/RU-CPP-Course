@@ -72,8 +72,9 @@ void Menu::add_eldritch_attributes(T& character, vector<string> attributes){
 
 void Menu::get_characters(){
     fstream charsFile;
-    charsFile.open("characters.txt",ios::in);
+    charsFile.open(rosterFileName,ios::in);
     string tp;
+    characters.clear();
     while(getline(charsFile, tp)){ 
         vector<string> attributes;
         stringstream ss(tp);
@@ -84,7 +85,7 @@ void Menu::get_characters(){
         }
 
         string type = attributes[0];
-        
+
 
         if (type == "Person"){
             Role<Person> *character = new Role<Person>;
@@ -111,7 +112,7 @@ void Menu::get_characters(){
                 }
                 creatures_map[name] += 1;
             }
-
+        
             character->change_role_name(attributes[1]);
             character->change_name(attributes[2]);
             add_being_attributes(character, attributes);
@@ -165,7 +166,7 @@ Menu::Menu(){
     //map<string, int> creatures_map {};
     //map<string, int> eldritch_map {};
 
-    menu_options = "\n1) Create\n2) Edit\n3) Delete\n4) View\n5) Quit\n";
+    menu_options = "\n1) Create\n2) Edit\n3) Delete\n4) View\n5) Switch Roster\n6) Quit\n";
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";
     new_char_options = "\n1) Person\n2) Creature\n3) Investigator\n4) Eldritch Horror\n5) Go back\n";
     edit_options = "\n1) Edit role\n2) Edit character\n3) Go Back\n";
@@ -182,7 +183,7 @@ bool Menu::valid_option(string option, int option_len){
 }
 
 int Menu::get_action(){
-    int option_len = 5;
+    int option_len = 6;
     cout << menu_options << endl;
     string option;
     cout << "Enter option: ";
@@ -431,7 +432,7 @@ void Menu::save_characters() {
     }
 
     fstream file;
-    file.open("characters.txt", ios::out | ios::trunc);
+    file.open(rosterFileName, ios::out | ios::trunc);
     file << data;
     file.close();
 }
@@ -631,7 +632,7 @@ void Menu::create_existing_character(){
     }
 
     string entry = create_random_entry(character);
-    save_to_file("characters.txt", entry);
+    save_to_file(rosterFileName, entry);
 }
 
 
@@ -1145,6 +1146,7 @@ void Menu::view_roles(){
 
 
 void Menu::all_characters() {
+    cout << endl;
     for (auto character : characters) {
         if (auto person = dynamic_cast<Role<Person>*>(character)) {
             person->print_stats();
@@ -1158,6 +1160,7 @@ void Menu::all_characters() {
         else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
             eldritch->print_stats();
         }
+        cout << endl;
     }
 }
 
@@ -1167,6 +1170,59 @@ void Menu::chars_to_file(string filename) {
 
     data = "----Here are all the characters----\n";
 
+    for (auto character : characters) {
+        string line;
+        if (auto person = dynamic_cast<Role<Person>*>(character)) {
+            line += "\n" + person->get_name() + "\n";
+            line += " - " + person->get_role_name() + "\n";
+            line += " - " + person->type.get_type() + "\n";
+            line += " - Life: " + to_string(person->type.get_life_stat()) + "\n";
+            line += " - Strength: " + to_string(person->type.get_strength_stat()) + "\n";
+            line += " - Intelligence: " + to_string(person->type.get_intelligence_stat()) + "\n";
+            line += " - Gender: " + person->type.get_gender() + "\n";
+            line += " - Fear: " + to_string(person->type.get_fear_stat()) + "\n";
+        }
+        else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
+            line += "\n" + creature->get_name() + "\n";
+            line += " - " + creature->get_role_name() + "\n";
+            line += " - " + creature->type.get_type() + "\n";
+            line += " - Life: " + to_string(creature->type.get_life_stat()) + "\n";
+            line += " - Strength: " + to_string(creature->type.get_strength_stat()) + "\n";
+            line += " - Intelligence: " + to_string(creature->type.get_intelligence_stat()) + "\n";
+            line += " - " + creature->type.get_natural() + "\n";
+            line += " - Disquiet: " + to_string(creature->type.get_disquiet_stat()) + "\n";
+        }
+        else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
+            line += "\n" + investigator->get_name() + "\n";
+            line += " - " + investigator->get_role_name() + "\n";
+            line += " - " + investigator->type.get_type() + "\n";
+            line += " - Life: " + to_string(investigator->type.get_life_stat()) + "\n";
+            line += " - Strength: " + to_string(investigator->type.get_strength_stat()) + "\n";
+            line += " - Intelligence: " + to_string(investigator->type.get_intelligence_stat()) + "\n";
+            line += " - Gender: " + investigator->type.get_gender() + "\n";
+            line += " - Fear: " + to_string(investigator->type.get_fear_stat()) + "\n";
+            line += " - Terror: " + to_string(investigator->type.get_terror_stat()) + "\n";
+        }
+        else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
+            line += "\n" + eldritch->get_name() + "\n";
+            line += " - " + eldritch->get_role_name() + "\n";
+            line += " - " + eldritch->type.get_type() + "\n";
+            line += " - Life: " + to_string(eldritch->type.get_life_stat()) + "\n";
+            line += " - Strength: " + to_string(eldritch->type.get_strength_stat()) + "\n";
+            line += " - Intelligence: " + to_string(eldritch->type.get_intelligence_stat()) + "\n";
+            line += " - " + eldritch->type.get_natural() + "\n";
+            line += " - Disquiet: " + to_string(eldritch->type.get_disquiet_stat()) + "\n";
+            line += " - Traumatism: " + to_string(eldritch->type.get_traumatism_stat()) + "\n";
+
+        }
+
+        data += line + "\n";
+    }
+
+    fstream file;
+    file.open(filename, ios::out | ios::trunc);
+    file << data;
+    file.close();
 }
 
 
@@ -1191,14 +1247,14 @@ void Menu::view_characters(){
         
         switch(my_choice){
         case console:
-            all_roles();
+            all_characters();
             go_back = true;
             break;
         
         case file:
             cout << "\nWhat should be the name of the file? ";
             cin >> filename;
-            roles_to_file(filename);
+            chars_to_file(filename);
             go_back = true;
             break;
 
@@ -1309,4 +1365,20 @@ void Menu::view_menu(){
             break;
         }
     }
+}
+
+
+
+//------------------------------ Switch roster ----------------------------------
+
+void Menu::switch_roster(){
+    string filename;
+
+    cout << "What's the name of the roster file? ";
+    cin >> filename;
+    
+    rosterFileName = filename;
+    get_characters();
+
+    all_characters();
 }

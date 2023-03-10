@@ -21,11 +21,13 @@ public:
     void edit_menu();
     void delete_menu();
     void view_menu();
+    void switch_roster();
 
     
     
 
 private:
+    string rosterFileName = "characters.txt";;
     string menu_options;
     string create_options;
     string new_char_options;
