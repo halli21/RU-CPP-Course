@@ -125,7 +125,7 @@ void Menu::get_characters(){
             characters.push_back(character);
        
         }
-        else if (type == "Eldritch Horror"){
+        else if (type == "EldritchHorror"){
             Species<EldritchHorror> *character = new Species<EldritchHorror>;
 
             size_t lastSpaceIndex = attributes[2].rfind(' ');
@@ -251,9 +251,6 @@ string Menu::get_being_info(string line) {
             line = line + "-" + to_string(valid_value(stoi(intel[1]), stoi(intel[0]), 10));
     }
 
-
-    cout << "being " << line << endl;
-
     return line;
 }
 
@@ -278,7 +275,6 @@ string Menu::get_person_info(string line) {
             line = line + "-" + to_string(valid_value(stoi(fear[1]), stoi(fear[0]), 10));
     }
 
-    cout << "person " << line << endl;
     return line;
 }
 
@@ -303,7 +299,6 @@ string Menu::get_creature_info(string line) {
             line = line + "-" + to_string(valid_value(stoi(disquiet[1]), stoi(disquiet[0]), 10));
     }
 
-    cout << "creature " << line << endl;
     return line;
 }
 
@@ -324,7 +319,6 @@ string Menu::get_investigator_info(string line) {
             line = line + "-" + to_string(valid_value(stoi(terror[1]), stoi(terror[0]), 3));
     }
 
-    cout << "investigator " << line << endl;
     return line;
 }
 
@@ -344,7 +338,6 @@ string Menu::get_eldritch_info(string line) {
             line = line + "-" + to_string(valid_value(stoi(traumatism[1]), stoi(traumatism[0]), 3));
     }
 
-    cout << "eldritch " << line << endl;
     return line;
 }
 
@@ -368,12 +361,10 @@ void Menu::save_roles() {
             else 
                 line = line + ";" + roles[i][x];
         }
-        cout << "line " << line << endl;
         line = line + "\n";
         data = data + line;
     }
 
-    cout << "\nData " << data << endl;
 
     fstream file;
     file.open("roles.txt", ios::out | ios::trunc);
@@ -409,28 +400,24 @@ void Menu::create_new_character(){
         
         switch(my_choice){
         case Person: 
-            cout << "create person" << endl;
             line = get_person_info(line);
             save_to_file(file, line);
             go_back = true;
             break;
 
         case Creature:
-            cout << "create creature" << endl;
             line = get_creature_info(line);
             save_to_file(file, line);
             go_back = true;
             break;
 
         case Investigator:
-            cout << "create investigator" << endl;
             line = get_investigator_info(get_person_info(line));
             save_to_file(file, line);
             go_back = true;
             break;
 
         case EldritchHorror:
-            cout << "create eldritchHorror" << endl;
             line = get_eldritch_info(get_creature_info(line));
             save_to_file(file, line);
             go_back = true;
@@ -441,8 +428,6 @@ void Menu::create_new_character(){
             break;
         }
     }
-
-    cout << line << endl;
 
 }
 
@@ -494,7 +479,7 @@ string Menu::create_random_entry(vector<string> character){
         entry += ";" + gender + ";" + to_string(randomFear);
     }
 
-    else if (type == "Creature" || type == "Eldritch Horror"){
+    else if (type == "Creature" || type == "EldritchHorror"){
         string natural = character[5];
         
         pair<int, int> disquiet = getTwoIntsFromString(character[6]);
@@ -510,7 +495,7 @@ string Menu::create_random_entry(vector<string> character){
         entry += ";" + to_string(randomTerror);
     }
 
-    else if (type == "Eldritch Horror"){
+    else if (type == "EldritchHorror"){
         pair<int, int> traumatism = getTwoIntsFromString(character[7]);
         int randomTraumatism = random_int(traumatism.first, traumatism.second);
 
@@ -536,7 +521,7 @@ void Menu::available_roles(){
             cout << " - " << roles[i][5] << endl;
             cout << " - Fear: " << roles[i][6] << endl;
         }
-        else if (roles[i][0] == "Creature" || roles[i][0] == "Eldritch Horror"){
+        else if (roles[i][0] == "Creature" || roles[i][0] == "EldritchHorror"){
             if (roles[i][5] == "true"){
                 cout << " - Natural " << endl;
             }
@@ -549,7 +534,7 @@ void Menu::available_roles(){
         if (roles[i][0] == "Investigator"){
             cout << " - Terror: " << roles[i][7] << endl;
         }
-        else if (roles[i][0] == "Eldritch Horror"){
+        else if (roles[i][0] == "EldritchHorror"){
             cout << " - Traumatism: " << roles[i][7] << endl;
         }
     }
@@ -945,7 +930,7 @@ void Menu::all_roles() {
             cout << " - " << roles[i][5] << endl;
             cout << " - Fear: " << roles[i][6] << endl;
         }
-        else if (roles[i][0] == "Creature" || roles[i][0] == "Eldritch Horror"){
+        else if (roles[i][0] == "Creature" || roles[i][0] == "EldritchHorror"){
             if (roles[i][5] == "true"){
                 cout << " - Natural " << endl;
             }
@@ -958,7 +943,7 @@ void Menu::all_roles() {
         if (roles[i][0] == "Investigator"){
             cout << " - Terror: " << roles[i][7] << endl;
         }
-        else if (roles[i][0] == "Eldritch Horror"){
+        else if (roles[i][0] == "EldritchHorror"){
             cout << " - Traumatism: " << roles[i][7] << endl;
         }
     }
@@ -983,7 +968,7 @@ void Menu::roles_to_file(string filename) {
             line += " - " + roles[i][5] + "\n";
             line += " - Fear: " + roles[i][6] + "\n";
         }
-        else if (roles[i][0] == "Creature" || roles[i][0] == "Eldritch Horror"){
+        else if (roles[i][0] == "Creature" || roles[i][0] == "EldritchHorror"){
             if (roles[i][5] == "true"){
                 line += " - Natural \n";
             }
@@ -996,7 +981,7 @@ void Menu::roles_to_file(string filename) {
         if (roles[i][0] == "Investigator"){
             line += " - Terror: " + roles[i][7] + "\n";
         }
-        else if (roles[i][0] == "Eldritch Horror"){
+        else if (roles[i][0] == "EldritchHorror"){
             line += " - Traumatism: " + roles[i][7] + "\n";
         }
 
@@ -1028,6 +1013,7 @@ void Menu::view_roles(){
         }
 
         Choice my_choice = Choice(stoi(option));
+        string filename;
         
         switch(my_choice){
         case console:
@@ -1036,7 +1022,9 @@ void Menu::view_roles(){
             break;
         
         case file:
-            roles_to_file("test.txt");
+            cout << "\nWhat should be the name of the file? ";
+            cin >> filename;
+            roles_to_file(filename);
             go_back = true;
             break;
 
@@ -1048,14 +1036,129 @@ void Menu::view_roles(){
 }
 
 
+void Menu::all_characters() {
+    for (auto character : characters) {
+        if (auto person = dynamic_cast<Role<Person>*>(character)) {
+            person->print_stats();
+        }
+        else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
+            creature->print_stats();
+        }
+        else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
+            investigator->print_stats();
+        }
+        else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
+            eldritch->print_stats();
+        }
+    }
+}
+
+
+void Menu::chars_to_file(string filename) {
+    string data;
+
+    data = "----Here are all the characters----\n";
+
+}
+
+
 void Menu::view_characters(){
-    //print all characters to file or console
+    int option_len = 3;
+    enum Choice {console = 1, file, back};
+    
+    bool go_back = false;
+    while(go_back == false) {
+        cout << "\n1) Print to console\n2) Print to file\n3) Go Back\n" << endl;
+        string option;
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, option_len) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        Choice my_choice = Choice(stoi(option));
+        string filename;
+        
+        switch(my_choice){
+        case console:
+            all_roles();
+            go_back = true;
+            break;
+        
+        case file:
+            cout << "\nWhat should be the name of the file? ";
+            cin >> filename;
+            roles_to_file(filename);
+            go_back = true;
+            break;
+
+        case back:
+            go_back = true;
+            break;
+        }
+    }
 }
 
 
 void Menu::view_single(){
-    //Print all role names and types
-    //make user choose one role to see more about (print all info about that role)
+    cout << "\n\n----Here are the roles available----" << endl;
+
+    for (int i = 0; i < roles.size(); i++){
+        cout << "\n" << i + 1 << ") " << roles[i][1] << endl;
+        cout << " - " << roles[i][0] << endl;
+    }
+
+    cout << "\n" << roles.size() + 1 << ") Go back\n " << endl;
+
+
+    string option;
+
+    while(true) {
+        
+        cout << "Enter option: ";
+        cin >> option;
+
+        if (valid_option(option, roles.size() + 1) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        if (stoi(option) == roles.size() + 1){
+            return;
+        }
+
+        break;
+    }
+
+
+    cout << "\n" << roles[stoi(option)-1][1] << endl;
+    cout << " - " << roles[stoi(option)-1][0] << endl;
+    cout << " - Life: " << roles[stoi(option)-1][2] << endl;
+    cout << " - Strength: " << roles[stoi(option)-1][3] << endl;
+    cout << " - Intelligence: " << roles[stoi(option)-1][4] << endl;
+
+    if (roles[stoi(option)-1][0] == "Person" || roles[stoi(option)-1][0] == "Investigator"){
+        cout << " - " << roles[stoi(option)-1][5] << endl;
+        cout << " - Fear: " << roles[stoi(option)-1][6] << endl;
+    }
+    else if (roles[stoi(option)-1][0] == "Creature" || roles[stoi(option)-1][0] == "EldritchHorror"){
+        if (roles[stoi(option)-1][5] == "true"){
+            cout << " - Natural " << endl;
+        }
+        else {
+            cout << " - Unnatural " << endl;
+        }
+        cout << " - Disquiet: " << roles[stoi(option)-1][6] << endl;
+    }
+
+    if (roles[stoi(option)-1][0] == "Investigator"){
+        cout << " - Terror: " << roles[stoi(option)-1][7] << endl;
+    }
+    else if (roles[stoi(option)-1][0] == "EldritchHorror"){
+        cout << " - Traumatism: " << roles[stoi(option)-1][7] << endl;
+    }
 }
 
 
