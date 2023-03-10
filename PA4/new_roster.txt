@@ -1,4 +1,4 @@
-Investigator;Detective;Sherlock Holmes;5;3;10;male;0;0
-Person;Nurse;Joy;5;6;9;female;2
-Investigator;Detective;Dr. Watson;6;7;7;male;1;0
+Investigator;Detective;Pikachu;5;3;10;male;0;0
+Person;Nurse;Ratched;7;6;9;female;0
+Investigator;Detective;Hercule Poirot;6;7;9;male;0;0
 EldritchHorror;Halli;Halli 1;10;3;3;false;9;3
