@@ -45,6 +45,7 @@ private:
     void available_roles();
     void all_roles();
     void all_characters();
+    void all_investigators();
     bool valid_option(string option, int option_len);
     void create_new_character();
     void create_existing_character();
@@ -67,6 +68,7 @@ private:
     void save_to_file(string filename, string line);
     void roles_to_file(string filename);
     void chars_to_file(string filename);
+    void invs_to_file(string filename);
     int valid_value(int value, int min, int max);
 
     template<class T>

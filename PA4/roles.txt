@@ -6,3 +6,4 @@ Creature;Wolf;4;6;5;true;2
 EldritchHorror;Chthonian;8;7;2;false;10;1
 EldritchHorror;Shoggoth;8;9;6;false;10;2
 EldritchHorror;Halli;0-10;3;0-3;false;9-10;3
+Investigator;Detective;0-10;4-8;8-10;male;0-4;0
