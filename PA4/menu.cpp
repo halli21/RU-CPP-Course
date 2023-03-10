@@ -815,17 +815,59 @@ void Menu::edit_character(){
 
     Character* character = *it;
 
-    if (auto person = dynamic_cast<Role<Person>*>(character)) {
-        person->type.edit_person();
+
+    string edit_prompt = "\n1) Edit name\n2) Edit stats\n3) Go back\n";
+    int edit_prompt_len = 3;
+
+    cout << edit_prompt << endl;
+
+    string edit_option;
+
+
+    while(true) {
+        cout << "Enter option: ";
+        cin >> edit_option;
+
+        if (valid_option(edit_option, edit_prompt_len) != true){
+            cout << "Invalid option!\n" << endl;
+            continue;
+        }
+
+        if (stoi(edit_option) == edit_prompt_len){
+            return;
+        }
+
+        break;
     }
-    else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
-        creature->type.edit_creature();
+
+
+    if (stoi(edit_option) == 1){
+        if (auto person = dynamic_cast<Role<Person>*>(character)) {
+            person->edit_name();
+        }
+        else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
+            creature->edit_name();
+        }
+        else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
+            investigator->edit_name();
+        }
+        else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
+            eldritch->edit_name();
+        }
     }
-    else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
-        investigator->type.edit_investigator();
-    }
-    else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
-        eldritch->type.edit_eldritch();
+    else {
+        if (auto person = dynamic_cast<Role<Person>*>(character)) {
+            person->type.edit_person();
+        }
+        else if (auto creature = dynamic_cast<Species<Creature>*>(character)) {
+            creature->type.edit_creature();
+        }
+        else if (auto investigator = dynamic_cast<Role<Investigator>*>(character)) {
+            investigator->type.edit_investigator();
+        }
+        else if (auto eldritch = dynamic_cast<Species<EldritchHorror>*>(character)) {
+            eldritch->type.edit_eldritch();
+        }
     }
 }
 

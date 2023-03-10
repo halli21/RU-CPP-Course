@@ -24,6 +24,13 @@ public:
         this->name = name;
     }
 
+    void edit_name() {
+        string value;
+        cout << "Enter value change: ";
+        cin >> value;
+        this->name = value;
+    }
+
     void print_stats() {
         cout << this->name << endl;
         type.print_stats();

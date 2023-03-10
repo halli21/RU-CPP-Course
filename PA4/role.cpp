@@ -2,6 +2,7 @@
 
 #include "character.cpp"
 
+
 using namespace std;
 
 
@@ -23,6 +24,13 @@ public:
 
     void change_name(string name) {
         this->name = name;
+    }
+
+    void edit_name(){
+        string value;
+        cout << "Enter value change: ";
+        cin >> value;
+        this->name = value;
     }
 
     void print_stats() {
