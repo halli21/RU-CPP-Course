@@ -4,7 +4,3 @@ Creature;Ghoul;Ghoul boss;6;6;4;false;6
 Creature;Wolf;Wolf 1;4;6;5;true;2
 Creature;Wolf;Wolf 2;4;6;5;true;2
 Creature;Wolf;Wolf 3;10;6;5;true;10
-Investigator;Detective;Sherlock Holmes;5;3;10;male;0;0
-Person;Nurse;Joy;5;6;9;female;2
-Investigator;Detective;Dr. Watson;6;7;7;male;1;0
-EldritchHorror;Halli;Halli 1;10;3;3;false;9;3

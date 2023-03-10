@@ -529,27 +529,36 @@ string Menu::create_random_entry(vector<string> character){
     string name;
 
 
-    if (type == "Person" || type == "Investigator"){
-        cout << "Enter name: ";
-        cin >> name;
-    }
-    else if (type == "Creature"){
-        if (creatures_map.count(role_name) == 0){
-            creatures_map[role_name] = 0;
+    cout << "Enter the name ('none' for auto assign): ";
+    cin >> name;
+
+   
+
+
+    if (name == "none") {
+        if (type == "Person" || type == "Investigator"){
+            name = "unknown";
         }
-        else {
-            creatures_map[role_name] += 1; 
-            name += role_name + " " + to_string(creatures_map[role_name]);
+        else if (type == "Creature"){
+            if (creatures_map.count(role_name) == 0){
+                creatures_map[role_name] = 0;
+                name = role_name + "1";
+            }
+            else {
+                creatures_map[role_name] += 1; 
+                name = role_name + " " + to_string(creatures_map[role_name]);
+            }
+            
         }
-        
-    }
-    else if (type == "EldritchHorror"){
-        if (eldritch_map.count(role_name) == 0){
-            eldritch_map[role_name] = 0;
-        }
-        else {
-            eldritch_map[role_name] += 1; 
-            name += role_name + to_string(eldritch_map[role_name]);
+        else if (type == "EldritchHorror"){
+            if (eldritch_map.count(role_name) == 0){
+                eldritch_map[role_name] = 0;
+                name = role_name + "1";
+            }
+            else {
+                eldritch_map[role_name] += 1; 
+                name = role_name + " " + to_string(eldritch_map[role_name]);
+            }
         }
     }
 
@@ -568,7 +577,17 @@ string Menu::create_random_entry(vector<string> character){
 
 
     if (type == "Person" || type == "Investigator"){
-        string gender = character[5];
+
+        string gender;
+
+        cout << "Enter the gender ('none' for auto assign): ";
+        cin >> gender;
+
+
+        if (gender == "none"){
+            gender = character[5];
+        }
+
         pair<int, int> fear = getTwoIntsFromString(character[6]);
         int randomFear = random_int(fear.first, fear.second);
 
