@@ -104,15 +104,19 @@ void Menu::get_characters(){
                 string name = attributes[2].substr(0, lastSpaceIndex);
                 string status = attributes[2].substr(lastSpaceIndex + 1);
 
-                if (creatures_map.count(name) == 0){
-                    creatures_map[name] = 0;
-                }
                 if (status == "boss") {
                     creatures_map[attributes[2]] = 1;
                 }
-                creatures_map[name] += 1;
+                else if (creatures_map.count(name) == 0){
+                    creatures_map[name] = 1;
+                }
+                else {
+                    creatures_map[name] += 1;
+                }
+
             }
-        
+                
+
             character->change_role_name(attributes[1]);
             character->change_name(attributes[2]);
             add_being_attributes(character, attributes);
@@ -138,13 +142,15 @@ void Menu::get_characters(){
                 string name = attributes[2].substr(0, lastSpaceIndex);
                 string status = attributes[2].substr(lastSpaceIndex + 1);
 
-                if (eldritch_map.count(name) == 0){
-                    eldritch_map[name] = 0;
-                }
                 if (status == "boss") {
                     eldritch_map[attributes[2]] = 1;
                 }
-                eldritch_map[name] += 1;
+                else if (eldritch_map.count(name) == 0){
+                    eldritch_map[name] = 1;
+                }
+                else {
+                    eldritch_map[name] += 1;
+                }
             }
             character->change_role_name(attributes[1]);
             character->change_name(attributes[2]);
@@ -154,19 +160,17 @@ void Menu::get_characters(){
             characters.push_back(character);
         }
 
-    }
+        }
     charsFile.close();
 }
+
 
 
 Menu::Menu(){
     get_roles();
     get_characters();
 
-    //map<string, int> creatures_map {};
-    //map<string, int> eldritch_map {};
-
-    menu_options = "\n1) Create\n2) Edit\n3) Delete\n4) View\n5) Switch Roster\n6) Quit\n";
+    menu_options = "\n1) Create\n2) Edit\n3) Delete\n4) View\n5) Quit\n";
     create_options = "\n1) Create new character\n2) Create existing character\n3) Go back\n";
     new_char_options = "\n1) Person\n2) Creature\n3) Investigator\n4) Eldritch Horror\n5) Go back\n";
     edit_options = "\n1) Edit role\n2) Edit character\n3) Go Back\n";
@@ -520,9 +524,35 @@ string Menu::create_random_entry(vector<string> character){
     string entry;
 
     string type = character[0];
-    string name = character[1];
+    string role_name = character[1];
+    string name;
 
-    entry += type + ";" + name;
+
+    if (type == "Person" || type == "Investigator"){
+        cout << "Enter name: ";
+        cin >> name;
+    }
+    else if (type == "Creature"){
+        if (creatures_map.count(role_name) == 0){
+            creatures_map[role_name] = 0;
+        }
+        else {
+            creatures_map[role_name] += 1; 
+            name += role_name + " " + to_string(creatures_map[role_name]);
+        }
+        
+    }
+    else if (type == "EldritchHorror"){
+        if (eldritch_map.count(role_name) == 0){
+            eldritch_map[role_name] = 0;
+        }
+        else {
+            eldritch_map[role_name] += 1; 
+            name += role_name + to_string(eldritch_map[role_name]);
+        }
+    }
+
+    entry += type + ";" + role_name + ";" + name;
 
     pair<int, int> life = getTwoIntsFromString(character[2]);
     pair<int, int> strength = getTwoIntsFromString(character[3]);
@@ -981,7 +1011,7 @@ void Menu::delete_role(){
             return;
         }
 
-        roles.erase(roles.begin()+stoi(option));
+        roles.erase(roles.begin() + stoi(option) - 1);
         //role = roles[stoi(option) - 1];
         break;
     }
@@ -1332,7 +1362,7 @@ void Menu::view_menu(){
     
     bool go_back = false;
     while(go_back == false) {
-        cout << view_options << endl;
+       
         string option;
         cout << "Enter option: ";
         cin >> option;
